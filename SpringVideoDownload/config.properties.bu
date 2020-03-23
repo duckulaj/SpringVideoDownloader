@@ -1,0 +1,7 @@
+#Mon Dec 02 14:21:22 GMT 2019
+moviedb.apikey=56744a89f97f5119fe2a2306794d29a3
+channels=http\://solar-iptv.net/get.php?username\=Jhawkins63@hotmail.com&password\=joZxlDnhv9&type\=m3u_plus&output\=ts
+downloadPath=/home/jonathan/videoDownloader/
+fullM3U=/home/jonathan/videoDownloader/allChannels.m3u
+moviedb.searchMovieURL=https\://api.themoviedb.org/3/movie
+moviedb.searchURL=https\://api.themoviedb.org/3/search/movie
