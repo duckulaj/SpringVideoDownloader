@@ -80,8 +80,8 @@ public class DownloadController {
 
 	M3UPlayList playlist = new M3UPlayList();
 	M3UGroupList grouplist = new M3UGroupList();
-	DownloadProperties downloadProperties = new DownloadProperties();
-	DmProperties dmProperties = new DmProperties();
+	DownloadProperties downloadProperties = DownloadProperties.getInstance();
+	DmProperties dmProperties = DmProperties.getInstance();
 	
 	
 

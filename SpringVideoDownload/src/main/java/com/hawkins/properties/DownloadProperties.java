@@ -1,5 +1,6 @@
 package com.hawkins.properties;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +40,7 @@ public class DownloadProperties implements Runnable {
 		
 		if (SystemUtils.IS_OS_WINDOWS) {
 			this.setDownloadPath(System.getProperty("user.home"));
-			this.setFullM3U(props.getProperty("fullM3U"));
+			this.setFullM3U(this.getDownloadPath() + File.separator + "allChannels.m3u");
 		} else if (SystemUtils.IS_OS_LINUX) {
 			this.setFullM3U(props.getProperty("fullM3U"));
 			this.setDownloadPath(props.getProperty("downloadPath"));
