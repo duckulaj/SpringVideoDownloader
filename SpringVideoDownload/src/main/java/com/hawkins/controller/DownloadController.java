@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -361,10 +362,16 @@ public class DownloadController {
 	}
 	
 	
-	@GetMapping("/group") public String groupForm(Model model) {
+	@GetMapping("/group") public String groupForm(Model model) {	
 
 		model.addAttribute(ROWS, grouplist.getGroupList()); 
 		return "group"; 
+	}
+	
+	@GetMapping("/viewLog") public String viewLog(Model model) {
+		
+		model.addAttribute("logFile", com.hawkins.utils.FileUtils.fileTail("SpringVideoDownload.log", 100));
+		return "viewLog";
 	}
 
 
