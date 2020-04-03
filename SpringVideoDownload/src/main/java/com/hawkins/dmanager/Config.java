@@ -191,7 +191,7 @@ public class Config {
 
 		this.monitoring = true;
 		this.showDownloadWindow = true;
-		this.setMaxSegments(24);
+		this.setMaxSegments(12);
 		this.setMinSegmentSize(64 * 1024);
 		this.maxDownloads = 100;
 		this.minVidSize = 1 * 1024 * 1024;
@@ -212,8 +212,8 @@ public class Config {
 		this.proxyPort = 0;
 		this.socksPort = 0;
 		this.proxyPac = this.proxyHost = this.proxyUser = this.proxyPass = this.socksHost = "";
-		this.showVideoNotification = true;
-		this.showDownloadCompleteWindow = true;
+		this.showVideoNotification = false;
+		this.showDownloadCompleteWindow = false;
 		this.firstRun = true;
 		this.language = "en";
 	}
