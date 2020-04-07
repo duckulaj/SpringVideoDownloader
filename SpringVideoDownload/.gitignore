@@ -1,3 +1,4 @@
 /SpringVideoDownload.log
 /target/
 /src/
+/${logPath}/
