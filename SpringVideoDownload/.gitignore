@@ -1,4 +1,6 @@
 /SpringVideoDownload.log
-/target/
+*/target/
 /src/
 /${logPath}/
+*.class
+*.lst
