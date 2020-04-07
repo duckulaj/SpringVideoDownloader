@@ -53,13 +53,11 @@
 		</div>
 	</div>
 
-	<div class="input-group col-xs-6">
-		<form action="#">
-			<textarea  th:value="${logFile}">... </textarea>
-		</form>
+	<div class="form-group shadow-textarea">
+  		<label for="exampleFormControlTextarea6">Log File - SpringVideoDownload.log</label>
+  		<textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="30" placeholder="..." th:text="${logFile}"></textarea>
 	</div>
 	
-
 
 	<!-- Bootstrap core JavaScript
 ================================================== -->

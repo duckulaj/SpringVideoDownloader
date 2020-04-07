@@ -126,6 +126,16 @@
 						</button>
 					</div>
 				</form>
+				<form class="navbar-form navbar-left" action="#"
+					th:action="@{/viewLog}" method="get">
+					<div class="form-group">
+						<button id="btnResumeJobs" type="submit"
+							class="btn btn-outline-success">
+							<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+							View Log
+						</button>
+					</div>
+				</form>
 				<!-- <form class="navbar-form navbar-right" th:action="@{/searchPerson}"
 					th:object="${searchPerson}" th:method="get" action="">
 					<div class="form-group" style="display: inline;">

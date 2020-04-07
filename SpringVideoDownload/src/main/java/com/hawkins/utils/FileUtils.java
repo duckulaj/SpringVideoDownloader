@@ -49,7 +49,7 @@ public class FileUtils {
 	public static String fileTail (String filename, int linecount) {
 
 		StringBuffer sb = new StringBuffer();
-
+		String lineSeperator = System.getProperty("line.separator");
 
 		File file = new File(filename);
 		int counter = 0; 
@@ -67,6 +67,7 @@ public class FileUtils {
 
 			while(counter < linecount) {
 				sb.append(object.readLine());
+				sb.append(lineSeperator);
 				counter++;
 			}
 
