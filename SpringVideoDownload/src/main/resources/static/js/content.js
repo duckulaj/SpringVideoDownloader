@@ -1,6 +1,3 @@
-/**
- * Created by Frenos on 18.08.2016.
- */
 $(document).ready(function()
 {
     $('#btnAddJobs').click(function(){

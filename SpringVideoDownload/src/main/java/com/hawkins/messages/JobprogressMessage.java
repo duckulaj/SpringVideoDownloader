@@ -1,8 +1,5 @@
 package com.hawkins.messages;
 
-/**
- * Created by Frenos on 23.08.2016.
- */
 public class JobprogressMessage {
     private String jobName;
     private String state;

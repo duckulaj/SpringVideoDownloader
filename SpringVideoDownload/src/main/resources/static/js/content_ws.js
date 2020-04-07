@@ -1,6 +1,3 @@
-/**
- * Created by Frenos on 18.08.2016.
- */
 var stompClient = null;
 
 $(document).ready(function()

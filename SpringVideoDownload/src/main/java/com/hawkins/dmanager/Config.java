@@ -191,7 +191,7 @@ public class Config {
 
 		this.monitoring = true;
 		this.showDownloadWindow = true;
-		this.setMaxSegments(12);
+		this.setMaxSegments(16);
 		this.setMinSegmentSize(64 * 1024);
 		this.maxDownloads = 100;
 		this.minVidSize = 1 * 1024 * 1024;
