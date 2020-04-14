@@ -203,7 +203,11 @@ public class DManagerApp implements DownloadListener, DownloadWindowListener, Co
 	}
 
 	public void downloadConfirmed(String id) {
-		logger.info("confirmed {}", id);
+		
+		if (logger.isDebugEnabled()) {
+			logger.debug("confirmed {}", id);
+		}
+		
 		Downloader d = downloaders.get(id);
 		DownloadEntry ent = downloads.get(id);
 		ent.setSize(d.getSize());
@@ -843,8 +847,11 @@ public class DManagerApp implements DownloadListener, DownloadWindowListener, Co
 			f = new File(getOutputFolder(id), f2 + "_" + c + ext);
 			c++;
 		}
-		logger.info("Updating file name - old: " + ent.getFile() + " new: " + f.getName());
-		ent.setFile(f.getName());
+		
+		if (ent.getFile() != f.getName()) {
+			logger.info("Updating file name - old: " + ent.getFile() + " new: " + f.getName());
+			ent.setFile(f.getName());
+		}
 	}
 
 	public int getNotification() {

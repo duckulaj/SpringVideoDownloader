@@ -28,9 +28,9 @@ import com.hawkins.dmanager.downloaders.metadata.HttpMetadata;
 import com.hawkins.dmanager.downloaders.metadata.manifests.F4MManifest;
 import com.hawkins.dmanager.mediaconversion.FFmpeg;
 import com.hawkins.dmanager.mediaconversion.MediaConversionListener;
+import com.hawkins.dmanager.util.DManagerUtils;
 import com.hawkins.dmanager.util.FormatUtilities;
 import com.hawkins.dmanager.util.StringUtils;
-import com.hawkins.dmanager.util.DManagerUtils;
 
 public class HdsDownloader extends Downloader implements SegmentListener, MediaConversionListener {
 	
@@ -601,18 +601,12 @@ public class HdsDownloader extends Downloader implements SegmentListener, MediaC
 
 	byte[] b = new byte[8192];
 
-	private void copyBytes(InputStream src, OutputStream dest, long len) throws IOException {
-		while (len > 0) {
-			if (stopFlag)
-				return;
-			int c = (int) (len > b.length ? b.length : len);
-			int x = src.read(b, 0, c);
-			if (x == -1)
-				throw new IOException("Unexpected EOF");
-			dest.write(b, 0, x);
-			len -= x;
-		}
-	}
+	/*
+	 * private void copyBytes(InputStream src, OutputStream dest, long len) throws
+	 * IOException { while (len > 0) { if (stopFlag) return; int c = (int) (len >
+	 * b.length ? b.length : len); int x = src.read(b, 0, c); if (x == -1) throw new
+	 * IOException("Unexpected EOF"); dest.write(b, 0, x); len -= x; } }
+	 */
 
 	@Override
 	public void progress(int progress) {

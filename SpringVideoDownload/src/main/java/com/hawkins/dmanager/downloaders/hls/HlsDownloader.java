@@ -28,9 +28,9 @@ import com.hawkins.dmanager.downloaders.metadata.manifests.M3U8Manifest;
 import com.hawkins.dmanager.mediaconversion.FFmpeg;
 import com.hawkins.dmanager.mediaconversion.MediaConversionListener;
 import com.hawkins.dmanager.mediaconversion.MediaFormats;
+import com.hawkins.dmanager.util.DManagerUtils;
 import com.hawkins.dmanager.util.FormatUtilities;
 import com.hawkins.dmanager.util.StringUtils;
-import com.hawkins.dmanager.util.DManagerUtils;
 
 public class HlsDownloader extends Downloader implements SegmentListener, MediaConversionListener {
 	
@@ -556,19 +556,5 @@ public class HlsDownloader extends Downloader implements SegmentListener, MediaC
 		}
 	}
 
-	// public static void main(String[] args) {
-	// try {
-	// Thread.sleep(5000);
-	// } catch (InterruptedException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	// HlsDownloader d2 = new HlsDownloader(UUID.randomUUID().toString(),
-	// "C:\\Users\\sd00109548\\Desktop\\temp");
-	// d2.metadata = new HlsMetadata();
-	// d2.metadata.setUrl("http://localhost:8080/test.m3u8");
-	// d2.start();
-	// }
-
+	
 }

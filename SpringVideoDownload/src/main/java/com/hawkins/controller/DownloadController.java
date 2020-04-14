@@ -95,7 +95,7 @@ public class DownloadController {
 		downloadProperties = DownloadProperties.getInstance();
 		playlist = M3UPlayList.getInstance();
 		grouplist = M3UGroupList.getInstance();
-		DManagerApp.getInstance();
+		// DManagerApp.getInstance();
 		
 
 	}
@@ -292,39 +292,38 @@ public class DownloadController {
 		return this.myDownloadList; 
 	}
 	
-	@GetMapping(value = "interrupt", params = { "name" })
+	
+	@GetMapping(value = "interrupt", params = { "name" }) 
 	public String interruptJob(Model model, @RequestParam String name) {
-		
-		DManagerApp.getInstance().pauseDownload(name);
-		DownloadJob job = Utils.findJobByName(myDownloadList, name);
-		
-		if (job != null) job.stop();
-		
-		return STATUS;
+	  
+	  DManagerApp.getInstance().pauseDownload(name); 
+	  DownloadJob job = Utils.findJobByName(myDownloadList, name);
+	  
+	  if (job != null) job.stop();
+	  
+	  return STATUS; 
 	}
+	 
 	
-	@PostMapping(value = "resumeJobs")
-	public String resumeJobs(Model model) {
-		
-		DManagerApp.getInstance().resumeDownload("123", true);
-		return STATUS;
-	}
+	/*
+	 * @PostMapping(value = "resumeJobs") public String resumeJobs(Model model) {
+	 * 
+	 * DManagerApp.getInstance().resumeDownload("123", true); return STATUS; }
+	 */
 	
 	
 	
-	@GetMapping(value = "pause", params = { "name" })
-	public String pauseJob(Model model, @RequestParam String name) {
-		
-		DManagerApp.getInstance().pauseDownload(name);
-		DownloadJob job = Utils.findJobByName(myDownloadList, name);
-		
-		if (job != null) {
-			job.pause();
-			job.setState(Constants.PAUSED);
-		}
-		
-		return STATUS;
-	}
+	/*
+	 * @GetMapping(value = "pause", params = { "name" }) public String
+	 * pauseJob(Model model, @RequestParam String name) {
+	 * 
+	 * DManagerApp.getInstance().pauseDownload(name); DownloadJob job =
+	 * Utils.findJobByName(myDownloadList, name);
+	 * 
+	 * if (job != null) { job.pause(); job.setState(Constants.PAUSED); }
+	 * 
+	 * return STATUS; }
+	 */
 	
 	@PostMapping("/removejobs")
 	public String removeJobs() {

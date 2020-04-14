@@ -30,7 +30,7 @@ public abstract class Downloader implements SegmentListener {
 	protected String folder;
 	protected String id;
 	protected boolean finished;
-	protected int maxCount = 8;
+	protected int maxCount = 8; // 8 is used as default, at runtime derived from Config.getInstance
 	public DownloadListener listener;
 	protected long downloaded;
 	protected long lastDownloaded;
