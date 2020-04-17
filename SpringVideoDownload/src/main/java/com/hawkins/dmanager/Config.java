@@ -189,33 +189,55 @@ public class Config {
 			this.downloadFolder = System.getProperty("user.home") +  "videoDownloader/";
 		}
 
-		this.monitoring = true;
-		this.showDownloadWindow = true;
-		this.setMaxSegments(16);
-		this.setMinSegmentSize(64 * 1024);
-		this.maxDownloads = 100;
-		this.minVidSize = 1 * 1024 * 1024;
+		DmProperties properties = DmProperties.getInstance();
+		
+		this.monitoring = properties.getMonitoring();
+		this.showDownloadWindow = properties.isShowDownloadWindow();
+		this.setMaxSegments(properties.getMaxSegments());
+		this.setMinSegmentSize(properties.getMinSegmentSize());
+		this.maxDownloads = properties.getMaxDownloads();
+		this.minVidSize = properties.getMinVidSize();
 		this.defaultFileTypes = new String[] { "3GP", "7Z", "AVI", "BZ2", "DEB", "DOC", "DOCX", "EXE", "GZ", "ISO",
 				"MSI", "PDF", "PPT", "PPTX", "RAR", "RPM", "XLS", "XLSX", "SIT", "SITX", "TAR", "JAR", "ZIP" };
 		this.fileExts = defaultFileTypes;
-		this.autoShutdown = false;
+		this.autoShutdown = properties.isAutoShutdown();
 		this.blockedHosts = new String[] { "update.microsoft.com", "windowsupdate.com", "thwawte.com" };
 		this.defaultVideoTypes = new String[] { "MP4", "M3U8", "F4M", "WEBM", "OGG", "MP3", "AAC", "FLV", "MKV", "DIVX",
 				"MOV", "MPG", "MPEG", "OPUS" };
 		this.vidExts = defaultVideoTypes;
 		this.vidUrls = new String[] { ".facebook.com|pagelet", "player.vimeo.com/", "instagram.com/p/" };
-		this.networkTimeout = 120;
-		this.tcpWindowSize = 8;
-		this.speedLimit = 0;
-
-		this.proxyMode = 0;
-		this.proxyPort = 0;
-		this.socksPort = 0;
+		this.networkTimeout = properties.getNetworkTimeout();
+		this.tcpWindowSize = properties.getTcpWindowSize();
+		this.speedLimit = properties.getSpeedLimit();
+		this.proxyMode = properties.getProxyMode();
+		this.proxyPort = properties.getProxyPort();
+		this.socksPort = properties.getSocksPort();
 		this.proxyPac = this.proxyHost = this.proxyUser = this.proxyPass = this.socksHost = "";
-		this.showVideoNotification = false;
-		this.showDownloadCompleteWindow = false;
+		this.showVideoNotification = properties.isShowVideoNotification();
+		this.showDownloadCompleteWindow = properties.isShowDownloadCompleteWindow();
 		this.firstRun = true;
-		this.language = "en";
+		this.language = properties.getLanguage();
+		
+		/*
+		 * this.monitoring = true; this.showDownloadWindow = true;
+		 * this.setMaxSegments(64); this.setMinSegmentSize(64 * 1024); this.maxDownloads
+		 * = 100; this.minVidSize = 1 * 1024 * 1024; this.defaultFileTypes = new
+		 * String[] { "3GP", "7Z", "AVI", "BZ2", "DEB", "DOC", "DOCX", "EXE", "GZ",
+		 * "ISO", "MSI", "PDF", "PPT", "PPTX", "RAR", "RPM", "XLS", "XLSX", "SIT",
+		 * "SITX", "TAR", "JAR", "ZIP" }; this.fileExts = defaultFileTypes;
+		 * this.autoShutdown = false; this.blockedHosts = new String[] {
+		 * "update.microsoft.com", "windowsupdate.com", "thwawte.com" };
+		 * this.defaultVideoTypes = new String[] { "MP4", "M3U8", "F4M", "WEBM", "OGG",
+		 * "MP3", "AAC", "FLV", "MKV", "DIVX", "MOV", "MPG", "MPEG", "OPUS" };
+		 * this.vidExts = defaultVideoTypes; this.vidUrls = new String[] {
+		 * ".facebook.com|pagelet", "player.vimeo.com/", "instagram.com/p/" };
+		 * this.networkTimeout = 120; this.tcpWindowSize = 8; this.speedLimit = 0;
+		 * 
+		 * this.proxyMode = 0; this.proxyPort = 0; this.socksPort = 0; this.proxyPac =
+		 * this.proxyHost = this.proxyUser = this.proxyPass = this.socksHost = "";
+		 * this.showVideoNotification = false; this.showDownloadCompleteWindow = false;
+		 * this.firstRun = true; this.language = "en";
+		 */
 	}
 
 	public static Config getInstance() {

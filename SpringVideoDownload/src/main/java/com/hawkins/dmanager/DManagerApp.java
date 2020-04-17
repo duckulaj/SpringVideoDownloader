@@ -133,7 +133,7 @@ public class DManagerApp implements DownloadListener, DownloadWindowListener, Co
 		qMgr.fixCorruptEntries(getDownloadIds(), this);
 		QueueScheduler.getInstance().start();
 		Config.getInstance().load();
-		Config.getInstance().save();
+		// Config.getInstance().save();
 		HttpContext.getInstance().init();
 	}
 
@@ -837,6 +837,7 @@ public class DManagerApp implements DownloadListener, DownloadWindowListener, Co
 		logger.info("checking for same named file on disk...");
 		String id = ent.getId();
 		File f = new File(getOutputFolder(id), ent.getFile());
+		
 		int c = 1;
 		while (f.exists()) {
 			String ext = DManagerUtils.getExtension(f.getAbsolutePath());
