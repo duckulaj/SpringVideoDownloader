@@ -18,6 +18,10 @@
  
 	</Appenders>
 	<Loggers>
+	
+		<logger name="com.hawkins.dmanager.downloaders.SegmentDownloader" level="debug">
+    		<AppenderRef ref="Console" />
+  		</logger>
 		<Root level="info">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFile" />
