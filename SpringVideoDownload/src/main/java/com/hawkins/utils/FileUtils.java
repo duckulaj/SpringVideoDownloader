@@ -11,10 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import javax.servlet.ServletContext;
+
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.io.input.ReversedLinesFileReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.MediaType;
 
 import com.hawkins.dmanager.DownloadEntry;
 
@@ -108,4 +111,19 @@ public class FileUtils {
 
 		return lineCount;
 	}
+	
+	// abc.zip
+    // abc.pdf,..
+    public static MediaType getMediaTypeForFileName(ServletContext servletContext, String fileName) {
+        // application/pdf
+        // application/xml
+        // image/gif, ...
+        String mineType = servletContext.getMimeType(fileName);
+        try {
+            MediaType mediaType = MediaType.parseMediaType(mineType);
+            return mediaType;
+        } catch (Exception e) {
+            return MediaType.APPLICATION_OCTET_STREAM;
+        }
+    }
 }
