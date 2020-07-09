@@ -41,7 +41,8 @@ public class F4MManifest {
 	private boolean isMetadata;
 	private int fragsPerSeg;
 	private F4MMedia selectedMedia;
-	private int segNum, fragNum, lastFrag;
+	private int segNum, fragNum;
+	private int lastFrag;
 	private String fragUrl, baseUrl;
 	private int discontinuity;
 	private String query;
@@ -69,7 +70,7 @@ public class F4MManifest {
 			segStart = segNum;
 			fragStart = fragNum;
 		}
-		byte[] fragmentData = new byte[0];
+		// byte[] fragmentData = new byte[0];
 		lastFrag = fragNum;
 		System.out.println(fragNum + " " + fragCount);
 		if (fragNum >= fragCount)
@@ -88,7 +89,7 @@ public class F4MManifest {
 		}
 		logger.info("fragUrl: " + fragUrl + "\nfragCount: " + fragCount + " baseUrl: " + baseUrl);
 
-		int fragsToDownload = fragCount - fragNum;
+		// int fragsToDownload = fragCount - fragNum;
 		while (fragNum < fragCount) {
 			logger.info("Remaining: " + (fragCount - fragNum));
 			fragNum++;
@@ -228,7 +229,7 @@ public class F4MManifest {
 		BoxInfo boxInfo = readBoxHeader(ptr);
 
 		pos = ptr.getPos();
-		long boxSize = boxInfo.getBoxSize();
+		// long boxSize = boxInfo.getBoxSize();
 		String boxType = boxInfo.getBoxType();
 
 		if (boxType.equals("abst"))
@@ -330,7 +331,7 @@ public class F4MManifest {
 		Segment firstSegment = segTable.get(0);
 		Segment lastSegment = segTable.get(segTable.size() - 1);
 		Fragment firstFragment = fragTable.get(0);
-		Fragment lastFragment = fragTable.get(fragTable.size() - 1);
+		// Fragment lastFragment = fragTable.get(fragTable.size() - 1);
 
 		if (segTable.size() == 1)
 			return firstSegment.firstSegment;
@@ -356,12 +357,12 @@ public class F4MManifest {
 		System.out.println("parsing abst");
 		live = false;
 		isMetadata = true;
-		int version = readByte(bootstrapInfo, pos);
-		int flags = (int) readInt24(bootstrapInfo, pos + 1);
-		int bootstrapVersion = (int) readInt32(bootstrapInfo, pos + 4);
+		// int version = readByte(bootstrapInfo, pos);
+		// int flags = (int) readInt24(bootstrapInfo, pos + 1);
+		// int bootstrapVersion = (int) readInt32(bootstrapInfo, pos + 4);
 		// Console.WriteLine("bootstrapVersion: " + bootstrapVersion);
 		int b = readByte(bootstrapInfo, pos + 8);
-		int profile = (b & 0xC0) >> 6;
+		// int profile = (b & 0xC0) >> 6;
 		int update = (b & 0x10) >> 4;
 		if (((b & 0x20) >> 5) > 0) {
 			live = true;
@@ -371,9 +372,9 @@ public class F4MManifest {
 			segTable.clear();
 			fragTable.clear();
 		}
-		int timescale = (int) readInt32(bootstrapInfo, pos + 9);
-		long currentMediaTime = readInt64(bootstrapInfo, 13);
-		long smpteTimeCodeOffset = readInt64(bootstrapInfo, 21);
+		// int timescale = (int) readInt32(bootstrapInfo, pos + 9);
+		// long currentMediaTime = readInt64(bootstrapInfo, 13);
+		// long smpteTimeCodeOffset = readInt64(bootstrapInfo, 21);
 		pos += 29;
 
 		BufferPointer bPtr = new BufferPointer();
@@ -395,8 +396,8 @@ public class F4MManifest {
 
 		for (int i = 0; i < qualityEntryCount; i++)
 			readString(bPtr);
-		String drmData = readString(bPtr);
-		String smetadata = readString(bPtr);
+		// String drmData = readString(bPtr);
+		// String smetadata = readString(bPtr);
 		pos = bPtr.getPos();
 		int segRunTableCount = readByte(bootstrapInfo, pos++);
 
@@ -500,8 +501,8 @@ public class F4MManifest {
 
 	private void parseAsrtBox(byte[] asrt, int pos) {
 		System.out.println("parsing asrt");
-		int version = readByte(asrt, (int) pos);
-		int flags = (int) readInt24(asrt, pos + 1);
+		// int version = readByte(asrt, (int) pos);
+		// int flags = (int) readInt24(asrt, pos + 1);
 		int qualityEntryCount = readByte(asrt, pos + 4);
 		segTable.clear();
 		pos += 5;
@@ -530,9 +531,9 @@ public class F4MManifest {
 	private void parseAfrtBox(byte[] afrt, int pos) {
 		System.out.println("Parse afrt");
 		fragTable.clear();
-		int version = readByte(afrt, pos);
-		int flags = (int) readInt24(afrt, pos + 1);
-		int timescale = (int) readInt32(afrt, pos + 4);
+		// int version = readByte(afrt, pos);
+		// int flags = (int) readInt24(afrt, pos + 1);
+		// int timescale = (int) readInt32(afrt, pos + 4);
 		int qualityEntryCount = readByte(afrt, pos + 8);
 		pos += 9;
 		BufferPointer args = new BufferPointer();
@@ -610,12 +611,12 @@ public class F4MManifest {
 		return data[pos] & 0xFF;
 	}
 
-	private long readInt24(byte[] data, int pos) {
+	/* private long readInt24(byte[] data, int pos) {
 		long iValLo = (data[pos + 2] & 0xFF + ((data[pos + 1] & 0xFF) * 256));
 		long iValHi = data[pos + 0] & 0xFF;
 		long iVal = iValLo + (iValHi * 65536);
 		return iVal;
-	}
+	}*/
 
 	private static long readInt32(byte[] data, int pos) {
 		long iValLo = ((long) (data[pos + 3] & 0xFF) + (long) (data[pos + 2] & 0xFF) * 256);

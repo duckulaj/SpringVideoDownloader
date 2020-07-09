@@ -41,8 +41,8 @@ public class InstagramHandler {
 			}
 			Matcher matcher = pattern.matcher(buf);
 			if (matcher.find()) {
-				int start = matcher.start();
-				int end = matcher.end();
+				// int start = matcher.start();
+				// int end = matcher.end();
 				String url = matcher.group(1);
 				logger.info("Url: " + url);
 				HttpMetadata metadata = new HttpMetadata();

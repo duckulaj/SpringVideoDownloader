@@ -89,10 +89,10 @@ public class FBHandler {
 	}
 
 	private static ArrayList<String> findURL(String keyword, StringBuffer buf) {
-		int index1 = 0;
+		// int index1 = 0;
 		int index = 0;
 		ArrayList<String> urlList = new ArrayList<String>();
-		String urlStart = ":";// "\"https";
+		// String urlStart = ":";// "\"https";
 		while (true) {
 			index = buf.indexOf(keyword, index);
 			if (index < 0)
@@ -103,7 +103,7 @@ public class FBHandler {
 				break;
 			}
 			index += 1;
-			int collonIndex = index;
+			// int collonIndex = index;
 
 			while (true) {
 				char ch = buf.charAt(index);
