@@ -76,7 +76,7 @@ public class MacUtils {
 	public static void addToStartup() {
 		File dir = new File(System.getProperty("user.home"), "videoDownloader/Library/LaunchAgents");
 		dir.mkdirs();
-		File f = new File(dir, "org.sdg.xdman.plist");
+		File f = new File(dir, "org.sdg.dmanager.plist");
 		FileOutputStream fs = null;
 		try {
 			fs = new FileOutputStream(f);
@@ -94,7 +94,7 @@ public class MacUtils {
 	}
 
 	public static boolean isAlreadyAutoStart() {
-		File f = new File(System.getProperty("user.home"), "videoDownloader/Library/LaunchAgents/org.sdg.xdman.plist");
+		File f = new File(System.getProperty("user.home"), "videoDownloader/Library/LaunchAgents/org.sdg.dmanager.plist");
 		if (!f.exists())
 			return false;
 		FileInputStream in = null;
@@ -120,7 +120,7 @@ public class MacUtils {
 	}
 
 	public static void removeFromStartup() {
-		File f = new File(System.getProperty("user.home"), "videoDownloader/Library/LaunchAgents/org.sdg.xdman.plist");
+		File f = new File(System.getProperty("user.home"), "videoDownloader/Library/LaunchAgents/org.sdg.dmanager.plist");
 		f.delete();
 	}
 
@@ -128,7 +128,7 @@ public class MacUtils {
 		String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 				+ "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\"\r\n"
 				+ "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\" >\r\n" + "<plist version=\"1.0\">\r\n"
-				+ "	<dict>\r\n" + "		<key>Label</key>\r\n" + "		<string>org.sdg.xdman</string>\r\n"
+				+ "	<dict>\r\n" + "		<key>Label</key>\r\n" + "		<string>org.sdg.dmanager</string>\r\n"
 				+ "		<key>ProgramArguments</key>\r\n" + "		<array>\r\n"
 				+ "			<string>%sbin/java</string>\r\n" + "			<string>-Xdock:name=DManager</string>\r\n"
 				+ "			<string>-jar</string>\r\n"

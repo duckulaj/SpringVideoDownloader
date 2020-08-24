@@ -46,10 +46,10 @@ public class Utils {
 		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("Utils.readProperties :: Looking for {}videoDownloader/.xdman/{}", userHome, propertyType);
+			logger.debug("Utils.readProperties :: Looking for {}videoDownloader/.dmanager/{}", userHome, propertyType);
 		}
 		
-		File configFile = new File(userHome, "videoDownloader/.xdman/" + propertyType);
+		File configFile = new File(userHome, "videoDownloader/.dmanager/" + propertyType);
 
 		if (!configFile.exists() && logger.isDebugEnabled()) {
 			logger.debug("{} does not exist", propertyType);

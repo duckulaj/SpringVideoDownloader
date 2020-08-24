@@ -1,6 +1,6 @@
 monitoring:true
 downloadFolder:/home/jonathan/videoDownloader
-temporaryFolder:/home/jonathan/videoDownloader/.xdman/temp
+temporaryFolder:/home/jonathan/videoDownloader/.dmanager/temp
 parallalDownloads:100
 maxSegments:16
 networkTimeout:60

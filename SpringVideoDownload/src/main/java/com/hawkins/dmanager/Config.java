@@ -57,7 +57,7 @@ public class Config {
 
 	void save() {
 		
-		File file = new File(System.getProperty("user.home"), "videoDownloader/.xdman/dm.properties");
+		File file = new File(System.getProperty("user.home"), "videoDownloader/.dmanager/dm.properties");
 		
 		try {
 			DmProperties.getInstance().store(new FileOutputStream(file), null);
@@ -119,7 +119,7 @@ public class Config {
 		DmProperties dmProperties = DmProperties.getInstance();
 		/*
 		 * BufferedReader br = null; try { File file = new
-		 * File(System.getProperty("user.home"), "videoDownloader/.xdman/config.txt");
+		 * File(System.getProperty("user.home"), "videoDownloader/.dmanager/config.txt");
 		 * if (!file.exists()) { return; } FileReader r = new FileReader(file); br = new
 		 * BufferedReader(r); while (true) { String ln = br.readLine(); if (ln == null)
 		 * break; if (ln.startsWith("#")) continue; int index = ln.indexOf(":"); if
@@ -169,7 +169,7 @@ public class Config {
 	private static Config _config;
 
 	private Config() {
-		File f = new File(System.getProperty("user.home"), "videoDownloader/.xdman");
+		File f = new File(System.getProperty("user.home"), "videoDownloader/.dmanager");
 		if (!f.exists()) {
 			f.mkdirs();
 		}
