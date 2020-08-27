@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,17 +30,29 @@ public class M3UParser {
 	
 			String line;
 			while ((line = br.readLine()) != null) {
-				String[] valuesInQuotes = StringUtils.substringsBetween(line, "\"", "\"");
-				if (valuesInQuotes != null) {
-					M3UItem channel = new M3UItem();
-					channel.setId(valuesInQuotes[0]);
-					channel.setName(valuesInQuotes[1]);
-					channel.setLogo(valuesInQuotes[2]);
-					channel.setGroupTitle(valuesInQuotes[3]);
-					channel.setUrl(br.readLine());
-					channel.setSearch(normaliseName(valuesInQuotes[1]));
-					m3uList.add(channel);
-	
+				
+				try {
+					String[] valuesInQuotes = StringUtils.substringsBetween(line, "\"", "\"");
+					if (valuesInQuotes != null) {
+						M3UItem channel = new M3UItem();
+						channel.setId(valuesInQuotes[0]);
+						channel.setName(valuesInQuotes[1]);
+						channel.setLogo(valuesInQuotes[2]);
+						
+						if (valuesInQuotes[3].equalsIgnoreCase("#menu-collapse")) {
+							logger.debug("bollox");
+						}
+						channel.setGroupTitle(valuesInQuotes[3]);
+						channel.setUrl(br.readLine());
+						channel.setSearch(normaliseName(valuesInQuotes[1]));
+						m3uList.add(channel);
+		
+					}
+				} catch (ArrayIndexOutOfBoundsException ae) {
+					if (logger.isDebugEnabled()) {
+						logger.debug("line is {}", line);
+						logger.debug("valuesInQuotes[3] is invalid");
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -69,29 +82,46 @@ public class M3UParser {
 				}
 				
 				String[] valuesInQuotes = StringUtils.substringsBetween(line, "\"", "\"");
-				if (valuesInQuotes != null) {
-
+				if (valuesInQuotes != null && valuesInQuotes.length == 4) {
 
 					M3UGroup group = new M3UGroup();
 					group.setId(null);
-					group.setName(valuesInQuotes[3]);
 					
-					if (logger.isDebugEnabled()) {
-						logger.debug("groupName is {}", group.getName());
-					}
-
-					if (m3uGroupList.isEmpty()) {
-						m3uGroupList.add(group);
-					} else {
-						boolean exists = false;
-						for (M3UGroup thisGroup : m3uGroupList){
-							if (thisGroup.getName().equalsIgnoreCase(group.getName())) {
-								exists = true;
+					try {
+						
+						// Have surrounded this with a try....catch in case the line is malformed
+						
+						if (valuesInQuotes[3].equalsIgnoreCase("modal")) {
+							logger.debug("bollox");
+						} else {
+							group.setName(valuesInQuotes[3]);
+							
+							if (logger.isDebugEnabled()) {
+								logger.debug("groupName is {}", group.getName());
+							}
+	
+							if (m3uGroupList.isEmpty()) {
+								m3uGroupList.add(group);
+							} else {
+								boolean exists = false;
+								for (M3UGroup thisGroup : m3uGroupList){
+									if (thisGroup.getName().equalsIgnoreCase(group.getName())) {
+										exists = true;
+										break;
+									}
+								}
+								
+								if(!exists) m3uGroupList.add(group);
 							}
 						}
-						
-						if(!exists) m3uGroupList.add(group);
+					} catch (ArrayIndexOutOfBoundsException ae) {
+						if (logger.isDebugEnabled()) {
+							logger.debug("line is {}", line);
+							logger.debug("valuesInQuotes[3] is invalid");
+						}
 					}
+					
+					
 				}
 			}
 		} catch (Exception e) {

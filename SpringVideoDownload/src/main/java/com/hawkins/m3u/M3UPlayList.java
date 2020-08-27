@@ -24,6 +24,7 @@ public class M3UPlayList implements Runnable {
 	public M3UPlayList() {
 
 		DownloadProperties downloadproperties = DownloadProperties.getInstance();
+		
 		Utils.copyUrlToFile(downloadproperties.getChannels(), downloadproperties.getFullM3U());
 
 		this.items =  M3UParser.getAllM3UListFromFile(downloadproperties.getFullM3U());
