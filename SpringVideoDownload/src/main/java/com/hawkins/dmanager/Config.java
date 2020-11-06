@@ -65,106 +65,12 @@ public class Config {
 			logger.info(e.getMessage());
 		}
 		
-		
-		/*
-		 * FileWriter fw = null; try { File file = new
-		 * File(System.getProperty("user.home"), "videoDownloader/config.txt"); fw = new
-		 * FileWriter(file);
-		 * 
-		 * String newLine = "\n";
-		 * 
-		 * fw.write("monitoring:" + this.monitoring + newLine);
-		 * fw.write("downloadFolder:" + this.downloadFolder + newLine);
-		 * fw.write("maxDownloads:" + this.maxDownloads + newLine);
-		 * fw.write("maxSegments:" + this.maxSegments + newLine);
-		 * fw.write("networkTimeout:" + this.networkTimeout + newLine);
-		 * fw.write("tcpWindowSize:" + this.tcpWindowSize + newLine);
-		 * fw.write("minSegmentSize:" + this.minSegmentSize + newLine);
-		 * fw.write("minVidSize:" + this.minVidSize + newLine);
-		 * fw.write("duplicateAction:" + this.duplicateAction + newLine);
-		 * fw.write("speedLimit:" + this.speedLimit + newLine);
-		 * fw.write("showDownloadWindow:" + this.showDownloadWindow + newLine);
-		 * fw.write("showDownloadCompleteWindow:" + this.showDownloadCompleteWindow +
-		 * newLine); fw.write("blockedHosts:" +
-		 * XDMUtils.appendArray2Str(this.blockedHosts) + newLine); fw.write("vidUrls:" +
-		 * XDMUtils.appendArray2Str(this.vidUrls) + newLine); fw.write("fileExts:" +
-		 * XDMUtils.appendArray2Str(this.fileExts) + newLine); fw.write("vidExts:" +
-		 * XDMUtils.appendArray2Str(this.vidExts) + newLine);
-		 * 
-		 * fw.write("proxyMode:" + this.proxyMode + newLine); fw.write("proxyPac:" +
-		 * this.proxyPac + newLine); fw.write("proxyHost:" + this.proxyHost + newLine);
-		 * fw.write("proxyPort:" + this.proxyPort + newLine); fw.write("socksHost:" +
-		 * this.socksHost + newLine); fw.write("socksPort:" + this.socksPort + newLine);
-		 * fw.write("proxyUser:" + this.proxyUser + newLine); fw.write("proxyPass:" +
-		 * this.proxyPass + newLine); fw.write("autoShutdown:" + this.autoShutdown +
-		 * newLine); fw.write("keepAwake:" + this.keepAwake + newLine);
-		 * fw.write("execCmd:" + this.execCmd + newLine); fw.write("execAntivir:" +
-		 * this.execAntivir + newLine); fw.write("version:" + XDMApp.APP_VERSION +
-		 * newLine); fw.write("autoStart:" + this.autoStart + newLine);
-		 * fw.write("language:" + this.language + newLine); if
-		 * (!StringUtils.isNullOrEmptyOrBlank(this.antivirExe)) fw.write("antivirExe:" +
-		 * this.antivirExe + newLine); if
-		 * (!StringUtils.isNullOrEmptyOrBlank(this.antivirCmd)) fw.write("antivirCmd:" +
-		 * this.antivirCmd + newLine); if
-		 * (!StringUtils.isNullOrEmptyOrBlank(this.customCmd)) fw.write("customCmd:" +
-		 * this.customCmd + newLine); fw.write("showVideoNotification:" +
-		 * this.showVideoNotification + newLine);
-		 * 
-		 * } catch (Exception e) { } try { fw.close(); } catch (Exception e) { }
-		 */
 	}
 
 	void load() {
 		
 		DmProperties dmProperties = DmProperties.getInstance();
-		/*
-		 * BufferedReader br = null; try { File file = new
-		 * File(System.getProperty("user.home"), "videoDownloader/.dmanager/config.txt");
-		 * if (!file.exists()) { return; } FileReader r = new FileReader(file); br = new
-		 * BufferedReader(r); while (true) { String ln = br.readLine(); if (ln == null)
-		 * break; if (ln.startsWith("#")) continue; int index = ln.indexOf(":"); if
-		 * (index < 1) continue; String key = ln.substring(0, index); String val =
-		 * ln.substring(index + 1); if (key.equals("monitoring")) { this.monitoring =
-		 * val.equals("true"); } else if (key.equals("downloadFolder")) {
-		 * this.downloadFolder = val; } else if (key.equals("maxSegments")) {
-		 * this.maxSegments = Integer.parseInt(val); } else if
-		 * (key.equals("minSegmentSize")) { this.minSegmentSize = Integer.parseInt(val);
-		 * } else if (key.equals("networkTimeout")) { this.networkTimeout =
-		 * Integer.parseInt(val); } else if (key.equals("tcpWindowSize")) {
-		 * this.tcpWindowSize = Integer.parseInt(val); } else if
-		 * (key.equals("duplicateAction")) { this.duplicateAction =
-		 * Integer.parseInt(val); } else if (key.equals("speedLimit")) { this.speedLimit
-		 * = Integer.parseInt(val); } else if (key.equals("showDownloadWindow")) {
-		 * this.showDownloadWindow = val.equals("true"); } else if
-		 * (key.equals("showDownloadCompleteWindow")) { this.showDownloadCompleteWindow
-		 * = val.equals("true"); } else if (key.equals("minVidSize")) { this.minVidSize
-		 * = Integer.parseInt(val); } else if (key.equals("maxDownloads")) {
-		 * this.maxDownloads = Integer.parseInt(val); } else if
-		 * (key.equals("blockedHosts")) { this.blockedHosts = val.split(","); } else if
-		 * (key.equals("vidUrls")) { this.vidUrls = val.split(","); } else if
-		 * (key.equals("fileExts")) { this.fileExts = val.split(","); } else if
-		 * (key.equals("vidExts")) { this.vidExts = val.split(","); } else if
-		 * (key.equals("proxyMode")) { this.proxyMode = Integer.parseInt(val); } else if
-		 * (key.equals("proxyPort")) { this.proxyPort = Integer.parseInt(val); } else if
-		 * (key.equals("socksPort")) { this.socksPort = Integer.parseInt(val); } else if
-		 * (key.equals("proxyPac")) { this.proxyPac = val; } else if
-		 * (key.equals("proxyHost")) { this.proxyHost = val; } else if
-		 * (key.equals("socksHost")) { this.socksHost = val; } else if
-		 * (key.equals("proxyUser")) { this.proxyUser = val; } else if
-		 * (key.equals("proxyPass")) { this.proxyPass = val; } else if
-		 * (key.equals("showVideoNotification")) { this.showVideoNotification =
-		 * "true".equals(val); } else if (key.equals("keepAwake")) { this.keepAwake =
-		 * "true".equals(val); } else if (key.equals("autoStart")) { this.autoStart =
-		 * "true".equals(val); } else if (key.equals("execAntivir")) { this.execAntivir
-		 * = "true".equals(val); } else if (key.equals("execCmd")) { this.execCmd =
-		 * "true".equals(val); } else if (key.equals("antivirExe")) { this.antivirExe =
-		 * val; } else if (key.equals("antivirCmd")) { this.antivirCmd = val; } else if
-		 * (key.equals("customCmd")) { this.customCmd = val; } else if
-		 * (key.equals("autoShutdown")) { this.autoShutdown = "true".equals(val); } else
-		 * if (key.equals("version")) { this.firstRun = !XDMApp.APP_VERSION.equals(val);
-		 * } else if (key.equals("language")) { this.language = val; } } } catch
-		 * (Exception e) { Logger.log(e); } try { br.close(); } catch (Exception e) { }
-		 */	}
+	}
 
 	private static Config _config;
 
@@ -177,20 +83,13 @@ public class Config {
 		
 		dataFolder = f.getAbsolutePath();
 		f = new File(dataFolder, "metadata");
-		if (!f.exists()) {
-			f.mkdir();
-		} else {
-			f.delete();
-			f.mkdir();
-		}
+		
+		if (f.exists()) f.delete();
+		f.mkdir();
+		
 		this.metadataFolder = f.getAbsolutePath();
 		f = new File(dataFolder, "temp");
-		if (!f.exists()) {
-			f.mkdir();
-		} else {
-			f.delete();
-			f.mkdir();
-		}
+		f.mkdir();
 		
 		this.temporaryFolder = f.getAbsolutePath();
 		this.downloadFolder = DManagerUtils.getDownloadsFolder();
@@ -227,26 +126,6 @@ public class Config {
 		this.firstRun = true;
 		this.language = properties.getLanguage();
 		
-		/*
-		 * this.monitoring = true; this.showDownloadWindow = true;
-		 * this.setMaxSegments(64); this.setMinSegmentSize(64 * 1024); this.maxDownloads
-		 * = 100; this.minVidSize = 1 * 1024 * 1024; this.defaultFileTypes = new
-		 * String[] { "3GP", "7Z", "AVI", "BZ2", "DEB", "DOC", "DOCX", "EXE", "GZ",
-		 * "ISO", "MSI", "PDF", "PPT", "PPTX", "RAR", "RPM", "XLS", "XLSX", "SIT",
-		 * "SITX", "TAR", "JAR", "ZIP" }; this.fileExts = defaultFileTypes;
-		 * this.autoShutdown = false; this.blockedHosts = new String[] {
-		 * "update.microsoft.com", "windowsupdate.com", "thwawte.com" };
-		 * this.defaultVideoTypes = new String[] { "MP4", "M3U8", "F4M", "WEBM", "OGG",
-		 * "MP3", "AAC", "FLV", "MKV", "DIVX", "MOV", "MPG", "MPEG", "OPUS" };
-		 * this.vidExts = defaultVideoTypes; this.vidUrls = new String[] {
-		 * ".facebook.com|pagelet", "player.vimeo.com/", "instagram.com/p/" };
-		 * this.networkTimeout = 120; this.tcpWindowSize = 8; this.speedLimit = 0;
-		 * 
-		 * this.proxyMode = 0; this.proxyPort = 0; this.socksPort = 0; this.proxyPac =
-		 * this.proxyHost = this.proxyUser = this.proxyPass = this.socksHost = "";
-		 * this.showVideoNotification = false; this.showDownloadCompleteWindow = false;
-		 * this.firstRun = true; this.language = "en";
-		 */
 	}
 
 	public static Config getInstance() {
