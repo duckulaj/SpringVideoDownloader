@@ -89,6 +89,9 @@ public class Config {
 		
 		this.metadataFolder = f.getAbsolutePath();
 		f = new File(dataFolder, "temp");
+		
+		
+		if (f.exists()) f.delete();
 		f.mkdir();
 		
 		this.temporaryFolder = f.getAbsolutePath();
