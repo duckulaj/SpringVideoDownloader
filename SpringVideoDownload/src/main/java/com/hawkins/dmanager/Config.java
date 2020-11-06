@@ -169,20 +169,29 @@ public class Config {
 	private static Config _config;
 
 	private Config() {
+		
 		File f = new File(System.getProperty("user.home"), "videoDownloader/.dmanager");
 		if (!f.exists()) {
 			f.mkdirs();
 		}
+		
 		dataFolder = f.getAbsolutePath();
 		f = new File(dataFolder, "metadata");
 		if (!f.exists()) {
+			f.mkdir();
+		} else {
+			f.delete();
 			f.mkdir();
 		}
 		this.metadataFolder = f.getAbsolutePath();
 		f = new File(dataFolder, "temp");
 		if (!f.exists()) {
 			f.mkdir();
+		} else {
+			f.delete();
+			f.mkdir();
 		}
+		
 		this.temporaryFolder = f.getAbsolutePath();
 		this.downloadFolder = DManagerUtils.getDownloadsFolder();
 		if (!new File(this.downloadFolder).exists()) {
