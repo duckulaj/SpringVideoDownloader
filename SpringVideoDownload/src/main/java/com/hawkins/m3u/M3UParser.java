@@ -171,4 +171,14 @@ public class M3UParser {
 		
 		return filmName;
 	}
+	
+	public static M3UGroup getGroupByName(M3UGroupList groups, String groupName) {
+		
+		M3UGroup thisGroup = groups.getGroupList().stream()
+				  .filter(group -> groupName.equals(group.getName()))
+				  .findAny()
+				  .orElse(null);
+		
+		return thisGroup; 
+	}
 }

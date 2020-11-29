@@ -37,6 +37,7 @@ import com.hawkins.m3u.M3UGroupList;
 import com.hawkins.m3u.M3UItem;
 import com.hawkins.m3u.M3UParser;
 import com.hawkins.m3u.M3UPlayList;
+import com.hawkins.m3u.M3UtoStrm;
 import com.hawkins.properties.DmProperties;
 import com.hawkins.properties.DownloadProperties;
 import com.hawkins.service.DownloadService;
@@ -95,6 +96,9 @@ public class DownloadController {
 		downloadProperties = DownloadProperties.getInstance();
 		playlist = M3UPlayList.getInstance();
 		grouplist = M3UGroupList.getInstance();
+		
+		
+		M3UtoStrm.convertM3UtoStream();
 		// DManagerApp.getInstance();
 		
 
@@ -373,6 +377,12 @@ public class DownloadController {
 		return "viewLog";
 	}
 
+	@GetMapping("/convertToStream") public String convertM3UtoStream(Model model) {
+		
+		M3UtoStrm.convertM3UtoStream();
+		return DOWNLOAD;
+	}
+	
 
 	@ModelAttribute("playlist")
 	public M3UPlayList populatePlaylist() {

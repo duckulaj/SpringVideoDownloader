@@ -14,4 +14,13 @@ public class Constants {
 	
 	public static final String CONFIGPROPERTIES = "config.properties";
 	public static final String DMPROPERTIES = "dm.properties";
+	
+	public static final String AVI = "avi";
+	public static final String MKV = "mkv";
+	public static final String MP4 = "mp4";
+	
+	public static final String LIVE = "live";
+	public static final String TVSHOW = "tvshow";
+	public static final String MOVIE = "movie";
+	
 }
