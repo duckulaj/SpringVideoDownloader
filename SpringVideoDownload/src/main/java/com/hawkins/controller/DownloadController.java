@@ -50,18 +50,6 @@ public class DownloadController {
 
 	private static final Logger logger = LogManager.getLogger(DownloadController.class.getName());
 	
-	private static final String DOWNLOAD = "download";
-	private static final String GROUPS = "groups";
-	private static final String SELECTEDGROUP = "selectedGroup";
-	private static final String SEARCHFILTER = "searchFilter";
-	private static final String MOVIEDB = "movieDb";
-	private static final String FILMS = "films";
-	private static final String JOBLIST = "jobList";
-	private static final String SEARCHYEAR = "searchYear";
-	private static final String SETTINGS = "settings";
-	private static final String ROWS = "rows";
-	private static final String STATUS = "status";
-	
 	@Qualifier("taskExecutor")
 	@Autowired
 	private ThreadPoolTaskExecutor myExecutor;
@@ -114,18 +102,18 @@ public class DownloadController {
 			logger.debug("initial :: Normal is {}", device.isNormal());
 			logger.debug("initial :: Tablet is {}", device.isTablet());
 		}
-		model.addAttribute(GROUPS, M3UParser.sortGrouplist(grouplist.getGroupList()));
-		model.addAttribute(SELECTEDGROUP, new M3UGroup());
-		model.addAttribute(SEARCHFILTER, new String());
-		model.addAttribute(MOVIEDB, MovieDb.getInstance());
+		model.addAttribute(Constants.GROUPS, M3UParser.sortGrouplist(grouplist.getGroupList()));
+		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
+		model.addAttribute(Constants.SEARCHFILTER, new String());
+		model.addAttribute(Constants.MOVIEDB, MovieDb.getInstance());
 		
 		
 		
-		return DOWNLOAD;
+		return Constants.DOWNLOAD;
 	}
 
 	@GetMapping("/downloadSubmit")
-	public String downloadSubmit(Model model, @ModelAttribute(SELECTEDGROUP) M3UGroup selectedGroup) {
+	public String downloadSubmit(Model model, @ModelAttribute(Constants.SELECTEDGROUP) M3UGroup selectedGroup) {
 		
 		if (logger.isDebugEnabled()) {
 			logger.debug(selectedGroup.getName());
@@ -133,21 +121,21 @@ public class DownloadController {
 		
 		if (!selectedGroup.getName().isEmpty()) {
 			List<M3UItem> sortedPlayList = playlist.filterPlayList(selectedGroup.getName());
-			model.addAttribute(FILMS, sortedPlayList);
+			model.addAttribute(Constants.FILMS, sortedPlayList);
 		} else {
-			model.addAttribute(FILMS, playlist.getPlayList());
+			model.addAttribute(Constants.FILMS, playlist.getPlayList());
 		}
 
-		model.addAttribute(MOVIEDB, MovieDb.getInstance());
-		model.addAttribute(GROUPS, M3UParser.sortGrouplist(grouplist.getGroupList()));
-		return DOWNLOAD;
+		model.addAttribute(Constants.MOVIEDB, MovieDb.getInstance());
+		model.addAttribute(Constants.GROUPS, M3UParser.sortGrouplist(grouplist.getGroupList()));
+		return Constants.DOWNLOAD;
 	}
 	
 	@GetMapping(value = "/searchPage")
 	public String searchPage(Model model) {
 		
-		model.addAttribute(SELECTEDGROUP, new M3UGroup());
-		model.addAttribute(GROUPS, grouplist.getGroupList());
+		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
+		model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
 		
 		return "search";
 	}
@@ -162,13 +150,13 @@ public class DownloadController {
 		
 		if (!searchFilter.isEmpty()) {
 			List<M3UItem> sortedList = M3UParser.sortPlaylist(M3UPlayList.getInstance().searchplayList(searchFilter));
-			model.addAttribute(FILMS, sortedList);
+			model.addAttribute(Constants.FILMS, sortedList);
 		}
 		
-		model.addAttribute(MOVIEDB, MovieDb.getInstance());
-		model.addAttribute(SELECTEDGROUP, new M3UGroup());
-		model.addAttribute(GROUPS, grouplist.getGroupList());
-		return DOWNLOAD;
+		model.addAttribute(Constants.MOVIEDB, MovieDb.getInstance());
+		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
+		model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
+		return Constants.DOWNLOAD;
 
 	}
 	
@@ -180,14 +168,14 @@ public class DownloadController {
 			logger.debug("searchPerson is {}", searchPerson);
 		}
 		if (!searchPerson.isEmpty()) {
-			model.addAttribute(FILMS, M3UParser.sortPlaylist(M3UPlayList.getInstance().searchplayListByActor(searchPerson)));
+			model.addAttribute(Constants.FILMS, M3UParser.sortPlaylist(M3UPlayList.getInstance().searchplayListByActor(searchPerson)));
 		}
 		
-		model.addAttribute(MOVIEDB, MovieDb.getInstance());
-		model.addAttribute(SELECTEDGROUP, new M3UGroup());
+		model.addAttribute(Constants.MOVIEDB, MovieDb.getInstance());
+		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
 		model.addAttribute("searchPerson", searchPerson);
-		model.addAttribute(GROUPS, grouplist.getGroupList());
-		return DOWNLOAD;
+		model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
+		return Constants.DOWNLOAD;
 		
 	}
 	
@@ -201,28 +189,28 @@ public class DownloadController {
 		
 		if (!searchYear.isEmpty()) {
 			List<M3UItem> sortedList = M3UParser.sortPlaylist(M3UPlayList.getInstance().searchplayListByYear(searchYear));
-			model.addAttribute(FILMS, sortedList);
+			model.addAttribute(Constants.FILMS, sortedList);
 		}
 		
-		model.addAttribute(MOVIEDB, MovieDb.getInstance());
-		model.addAttribute(SELECTEDGROUP, new M3UGroup());
-		model.addAttribute(SEARCHYEAR, searchYear);
-		model.addAttribute(GROUPS, grouplist.getGroupList());
-		return DOWNLOAD;
+		model.addAttribute(Constants.MOVIEDB, MovieDb.getInstance());
+		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
+		model.addAttribute(Constants.SEARCHYEAR, searchYear);
+		model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
+		return Constants.DOWNLOAD;
 	}
 
 	
 	  @RequestMapping("/download") public String downloadForm(Model
-	  model, @ModelAttribute(SELECTEDGROUP) M3UGroup selectedGroup) {
+	  model, @ModelAttribute(Constants.SELECTEDGROUP) M3UGroup selectedGroup) {
 	  
-	  if (!selectedGroup.getName().isEmpty()) { model.addAttribute(FILMS,
+	  if (!selectedGroup.getName().isEmpty()) { model.addAttribute(Constants.FILMS,
 	  playlist.filterPlayList(selectedGroup.getName())); }
 	  
 	  
-	  model.addAttribute(MOVIEDB, MovieDb.getInstance());
-	  model.addAttribute(GROUPS, grouplist.getGroupList());
+	  model.addAttribute(Constants.MOVIEDB, MovieDb.getInstance());
+	  model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
 	  
-	  return DOWNLOAD; }
+	  return Constants.DOWNLOAD; }
 	 
 	
 	@PostMapping(value = "/download", params = { "name" })
@@ -266,10 +254,10 @@ public class DownloadController {
 			
 			myService.doWork(downloadJob);
 			
-			model.addAttribute(MOVIEDB, MovieDb.getInstance());
-			model.addAttribute(FILMS, playlist.getPlayList());
-			model.addAttribute(GROUPS, grouplist.getGroupList());
-			model.addAttribute(SELECTEDGROUP, new M3UGroup());
+			model.addAttribute(Constants.MOVIEDB, MovieDb.getInstance());
+			model.addAttribute(Constants.FILMS, playlist.getPlayList());
+			model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
+			model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
 
 		} catch (IOException ioe) {
 			logger.info(ioe.getMessage());
@@ -277,7 +265,7 @@ public class DownloadController {
 			logger.info(e.getMessage());
 		}
 
-		return STATUS;
+		return Constants.STATUS;
 	}
 
 
@@ -285,8 +273,8 @@ public class DownloadController {
 	@GetMapping(value = "/showStatus")
 	public String showStatus(Model model) {
 		
-		model.addAttribute(JOBLIST, this.myDownloadList);
-		return STATUS;
+		model.addAttribute(Constants.JOBLIST, this.myDownloadList);
+		return Constants.STATUS;
 	}
 	
 	@RequestMapping(value = "/status")
@@ -305,7 +293,7 @@ public class DownloadController {
 	  
 	  if (job != null) job.stop();
 	  
-	  return STATUS; 
+	  return Constants.STATUS; 
 	}
 	 
 	
@@ -332,14 +320,14 @@ public class DownloadController {
 	@PostMapping("/removejobs")
 	public String removeJobs() {
 		myDownloadList = (ArrayList<DownloadJob>) Utils.removeJobs(myDownloadList);
-		return STATUS;
+		return Constants.STATUS;
 	}
 	
 	@GetMapping("/settings")
 	public String settings (Model model) {
 		
-		model.addAttribute(SETTINGS, DownloadProperties.getInstance());
-		return SETTINGS;
+		model.addAttribute(Constants.SETTINGS, DownloadProperties.getInstance());
+		return Constants.SETTINGS;
 	}
 	
 	@PostMapping(value = "saveSettings")
@@ -355,11 +343,11 @@ public class DownloadController {
 		
 		ArrayList<String> newProperties = new ArrayList<>(Arrays.asList(channels, fullM3U, downloadPath, movieDbURL, movieDbAPI, searchMovieURL));
 		
-		model.addAttribute(SETTINGS, downloadProperties.updateSettings(newProperties));
+		model.addAttribute(Constants.SETTINGS, downloadProperties.updateSettings(newProperties));
 		
-		model.addAttribute(MOVIEDB, new MovieDb());
-		model.addAttribute(SELECTEDGROUP, new M3UGroup());
-		model.addAttribute(GROUPS, grouplist.getGroupList());
+		model.addAttribute(Constants.MOVIEDB, new MovieDb());
+		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
+		model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
 		
 		return "/download";
 	}
@@ -367,7 +355,7 @@ public class DownloadController {
 	
 	@GetMapping("/group") public String groupForm(Model model) {	
 
-		model.addAttribute(ROWS, grouplist.getGroupList()); 
+		model.addAttribute(Constants.ROWS, grouplist.getGroupList()); 
 		return "group"; 
 	}
 	
@@ -376,13 +364,6 @@ public class DownloadController {
 		model.addAttribute("logFile", com.hawkins.utils.FileUtils.fileTail("SpringVideoDownload.log", 100));
 		return "viewLog";
 	}
-
-	@GetMapping("/convertToStream") public String convertM3UtoStream(Model model) {
-		
-		M3UtoStrm.convertM3UtoStream();
-		return DOWNLOAD;
-	}
-	
 
 	@ModelAttribute("playlist")
 	public M3UPlayList populatePlaylist() {
