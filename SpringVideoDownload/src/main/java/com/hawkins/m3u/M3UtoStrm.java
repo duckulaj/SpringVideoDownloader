@@ -40,7 +40,7 @@ public class M3UtoStrm {
 			
 			if (thisGroup!= null) {
 				String stream = item.getUrl();
-				String streamType = deriveStreamType(stream);
+				String streamType = deriveStreamType(item.getName());
 				
 				thisGroup.setType(streamType);
 			}
@@ -56,14 +56,15 @@ public class M3UtoStrm {
 		 * TO-DO We need the item type as well to run the regex
 		 */
 			String streamType = null;
+			String videoExtension = null;
 			
 			// Get the last three characters from the stream
 			
-			String videoExtension = stream.substring(stream.length() - 3);
+			if (stream.length() > 3) videoExtension = stream.substring(stream.length() - 3);
 			
 			if (Arrays.asList(videoTypes).contains(videoExtension)) {
 				// Check to see if we have Season and Episode information in the form of S01 E01
-				Pattern pattern = Pattern.compile("S\\d\\d E\\d\\d", Pattern.CASE_INSENSITIVE);
+				Pattern pattern = Pattern.compile("[S]{1}[0-9]{2} [E]{1}[0-9]{2}", Pattern.CASE_INSENSITIVE);
 				Matcher matcher = pattern.matcher(stream);
 				boolean matchFound = matcher.find();
 				
