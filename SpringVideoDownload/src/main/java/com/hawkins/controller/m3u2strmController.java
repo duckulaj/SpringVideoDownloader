@@ -31,6 +31,8 @@ public class m3u2strmController {
 	@GetMapping("/convertToStream") public String convertM3UtoStream(Model model) {
 		
 		M3UtoStrm.convertM3UtoStream();
+		
+		model.addAttribute(Constants.SELECTEDGROUP, "");
 		return Constants.DOWNLOAD;
 	}
 }

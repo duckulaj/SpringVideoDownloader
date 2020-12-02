@@ -5,6 +5,7 @@ public class M3UItem {
 	private String name = "";
 	private String logo = "";
 	private String title = "";
+	private String groupType = "";
 	private String url = "";
 	private String search = "";
 	private String movieDbId = "";
@@ -83,8 +84,13 @@ public class M3UItem {
 	public void setMovieDbId(String movieDbId) {
 		this.movieDbId = movieDbId;
 	}
-	
-	
-	
+
+	public String getGroupType() {
+		return groupType;
+	}
+
+	public void setGroupType(String groupType) {
+		this.groupType = groupType;
+	}
 	
 }
