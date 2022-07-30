@@ -2,6 +2,7 @@ package com.hawkins.configuration;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PreDestroy;
 
@@ -29,7 +30,8 @@ public class FileWatcherConfig {
 		fileSystemWatcher.addSourceDirectory(new File(dp.getFileWatcherLocation()));
 		fileSystemWatcher.addListener(new MyFileChangeListener());
 		fileSystemWatcher.start();
-		log.info("Watching {} every {}ms", dp.getFileWatcherLocation(), Duration.ofMillis(dp.getFileWatcherPollingDuration()));
+		log.info("Watching {} every {}secs", dp.getFileWatcherLocation(), (TimeUnit.MILLISECONDS.toSeconds(dp.getFileWatcherPollingDuration())
+	               % 60));
 		
 		return fileSystemWatcher;
 	}
