@@ -14,6 +14,7 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import com.hawkins.properties.DownloadProperties;
+import com.hawkins.utils.Emby;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +37,7 @@ public class EpgReader {
 	
 	public void changeLocalTime() {
 		changeLocalTime(properties.getEpgFileName());
+		
 	}
 
 	public static void changeLocalTime(String fileName) {
@@ -99,6 +101,7 @@ public class EpgReader {
 			writer.write(document);
 			writer.close();
 			
+			Emby.refreshGuide();
 
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block

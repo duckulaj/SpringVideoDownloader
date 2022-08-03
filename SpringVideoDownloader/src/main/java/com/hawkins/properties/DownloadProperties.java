@@ -35,6 +35,9 @@ public class DownloadProperties implements Runnable {
 	private String epgFileName = null;
 	private String fileWatcherLocation=null;
 	private long fileWatcherPollingDuration = 5000L; //default to 5 seconds
+	private boolean embyInstalled = false;
+	private String embyApi = null;
+	private String embyUrl = null;
 
 	public DownloadProperties() {
 
@@ -58,6 +61,9 @@ public class DownloadProperties implements Runnable {
 		this.setEpgFileName(props.getProperty("epg.filename"));
 		this.setFileWatcherLocation(props.getProperty("fileWatcher.location"));
 		this.setFileWatcherPollingDuration(Long.parseLong(props.getProperty("filewatcher.pollingDuration")));
+		this.setEmbyInstalled(Boolean.parseBoolean(props.getProperty("emby.installed")));
+		this.setEmbyApi(props.getProperty("emby.api"));
+		this.setEmbyUrl(props.getProperty("emby.url"));
 		
 	}
 
@@ -197,4 +203,29 @@ public class DownloadProperties implements Runnable {
 		this.fileWatcherPollingDuration = fileWatcherPollingDuration;
 	}
 
+	public boolean isEmbyInstalled() {
+		return embyInstalled;
+	}
+
+	public void setEmbyInstalled(boolean embyInstalled) {
+		this.embyInstalled = embyInstalled;
+	}
+
+	public String getEmbyApi() {
+		return embyApi;
+	}
+
+	public void setEmbyApi(String embyApi) {
+		this.embyApi = embyApi;
+	}
+
+	public String getEmbyUrl() {
+		return embyUrl;
+	}
+
+	public void setEmbyUrl(String embyUrl) {
+		this.embyUrl = embyUrl;
+	}
+
+	
 }

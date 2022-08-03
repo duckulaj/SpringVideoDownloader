@@ -9,6 +9,7 @@ import com.hawkins.m3u.M3UGroup;
 import com.hawkins.m3u.M3UGroupList;
 import com.hawkins.m3u.M3UtoStrm;
 import com.hawkins.utils.Constants;
+import com.hawkins.utils.Emby;
 import com.hawkins.utils.MovieDb;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class m3u2strmController {
 		log.info("Starting convertM3UtoStream()");
 		
 		M3UtoStrm.convertM3UtoStream();
+		
 		
 		model.addAttribute(Constants.GROUPS, M3UGroupList.getInstance().getGroupList());
 		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
