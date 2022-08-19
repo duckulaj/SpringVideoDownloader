@@ -48,7 +48,9 @@ public class EpgReader {
 		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		SAXReader reader = new SAXReader();
-
+		DownloadProperties dp = DownloadProperties.getInstance();
+		
+		String epgTimeDifference = dp.getEpgTimeDifference();
 		try {
 			document = reader.read(fileName);
 
@@ -57,18 +59,19 @@ public class EpgReader {
 			/*
 			 * For each channel element let's normalise the display-name
 			 */
-			Iterator<Element> itChannel = rootElement.elementIterator("channel");
-			
-			while (itChannel.hasNext()) {
-				Element chnElement = (Element) itChannel.next();
-				Element dElement = chnElement.element(DISPLAY_NAME);
-				
-				szDisplayName = dElement.getStringValue();
-				
-				String szNewDisplayName = formatStr(szDisplayName);
-				dElement.setText(szNewDisplayName);
-				
-			}
+			/*
+			 * Iterator<Element> itChannel = rootElement.elementIterator("channel");
+			 * 
+			 * while (itChannel.hasNext()) { Element chnElement = (Element)
+			 * itChannel.next(); Element dElement = chnElement.element(DISPLAY_NAME);
+			 * 
+			 * szDisplayName = dElement.getStringValue();
+			 * 
+			 * String szNewDisplayName = formatStr(szDisplayName);
+			 * dElement.setText(szNewDisplayName);
+			 * 
+			 * }
+			 */
 			
 			/*
 			 *  Now we need to make any adjustments to the programme start and end dates
@@ -83,8 +86,8 @@ public class EpgReader {
 				szStart = pgmElement.attribute(START).getStringValue();
 				szEnd = pgmElement.attribute(STOP).getStringValue();
 			
-				String szNewStart = szStart.replace("+0000", "+0200");
-				String szNewEnd = szEnd.replace("+0000", "+0200");
+				String szNewStart = szStart.replace("+0000", epgTimeDifference);
+				String szNewEnd = szEnd.replace("+0000", epgTimeDifference);
 				
 				pgmElement.attribute(START).setText(szNewStart);
 				pgmElement.attribute(STOP).setText(szNewEnd);
@@ -93,7 +96,7 @@ public class EpgReader {
 			OutputFormat format = OutputFormat.createPrettyPrint();
 			XMLWriter writer;
 			
-			String outputFile = properties.getFileWatcherLocation() + "xteveNew.xml";
+			String outputFile = properties.getFileWatcherLocation() + "/xteveNew.xml";
 			
 			log.info("Writing {}", outputFile);
 			writer = new XMLWriter(new BufferedOutputStream(new FileOutputStream(outputFile)), format);
@@ -118,9 +121,9 @@ public class EpgReader {
 
 	public static String formatStr(String instr) {
 		instr = instr.replaceAll("'","''");
-		instr = instr.replaceAll("[UK]'","");
-        instr = instr.replaceAll("[HD]","");
-        instr = instr.replaceAll("[\\[\\]\"]", "");
+		// instr = instr.replaceAll("[UK]'","");
+        //instr = instr.replaceAll("[HD]","");
+        // instr = instr.replaceAll("[\\[\\]\"]", "");
         /*instr = instr.replaceAll(">",">");
         instr = instr.replaceAll("<","<");*/
 		return instr.trim();

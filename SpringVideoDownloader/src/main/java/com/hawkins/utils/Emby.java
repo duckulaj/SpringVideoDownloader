@@ -67,4 +67,11 @@ public class Emby {
 		}
 		
 	}
+	
+	public static void refreshLibraries() {
+		
+		// TODO
+		
+		
+	}
 }

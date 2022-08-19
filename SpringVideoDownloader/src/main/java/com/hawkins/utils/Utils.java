@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.channels.Channels;
@@ -22,8 +23,9 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+// import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -126,6 +128,19 @@ public class Utils {
 		long end = System.currentTimeMillis();
 		if (log.isDebugEnabled()) {
 			log.debug("copyUrlToFile executed in {} ms", (end - start));
+		}
+	}
+	
+	public static void copyUrlToFileUsingCommonsIO(String url, String fileName) {
+		
+		try {
+			FileUtils.copyURLToFile(new URL(url), new File(fileName), 40000, 30000);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

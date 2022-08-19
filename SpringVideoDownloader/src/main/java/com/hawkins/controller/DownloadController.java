@@ -68,27 +68,28 @@ public class DownloadController {
 		this.myService = myService;
 	}
 
-	/*
-	M3UPlayList playlist = new M3UPlayList();
-	M3UGroupList grouplist = new M3UGroupList();
+	
+	M3UPlayList playlist = new M3UPlayList().getInstance();
+	M3UGroupList grouplist = new M3UGroupList().getInstance();
 	DownloadProperties downloadProperties = DownloadProperties.getInstance();
 	DmProperties dmProperties = DmProperties.getInstance();
-	*/
 	
-	M3UPlayList playlist;
-	M3UGroupList grouplist;
-	DownloadProperties downloadProperties;
-	DmProperties dmProperties;
+	
+	/*
+	 * M3UPlayList playlist; M3UGroupList grouplist; DownloadProperties
+	 * downloadProperties; DmProperties dmProperties;
+	 */
 
 
 	@ModelAttribute
 	public void initValues(Model model) {
 		
-		/*
-		 * dmProperties = DmProperties.getInstance();; downloadProperties =
-		 * DownloadProperties.getInstance(); playlist = M3UPlayList.getInstance();
-		 * grouplist = M3UGroupList.getInstance();
-		 */
+		
+		dmProperties = DmProperties.getInstance();
+		downloadProperties = DownloadProperties.getInstance();
+		playlist = M3UPlayList.getInstance();
+		grouplist = M3UGroupList.getInstance();
+		
 	}
 
 	@GetMapping("/")
@@ -368,6 +369,13 @@ public class DownloadController {
 		
 		model.addAttribute("logFile", com.hawkins.utils.FileUtils.fileTail("SpringVideoDownload.log", 100));
 		return "viewLog";
+	}
+
+	@GetMapping("/listChannels") public String listChannels(Model model) {
+		
+		model.addAttribute("channels", playlist.getPlayList());
+		
+		return "channelList";
 	}
 
 	@ModelAttribute("playlist")

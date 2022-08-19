@@ -33,6 +33,7 @@ public class DownloadProperties implements Runnable {
 	private String resetM3UFileSchedule = null;
 	private String createStreamsSchedule = null;
 	private String epgFileName = null;
+	private String epgTimeDifference = null;
 	private String fileWatcherLocation=null;
 	private long fileWatcherPollingDuration = 5000L; //default to 5 seconds
 	private boolean embyInstalled = false;
@@ -59,6 +60,7 @@ public class DownloadProperties implements Runnable {
 		this.setMovieDbURL(props.getProperty("moviedb.searchURL"));
 		this.setSearchMovieURL(props.getProperty("moviedb.searchMovieURL"));
 		this.setEpgFileName(props.getProperty("epg.filename"));
+		this.setEpgTimeDifference(props.getProperty("epg.time.difference"));
 		this.setFileWatcherLocation(props.getProperty("fileWatcher.location"));
 		this.setFileWatcherPollingDuration(Long.parseLong(props.getProperty("filewatcher.pollingDuration")));
 		this.setEmbyInstalled(Boolean.parseBoolean(props.getProperty("emby.installed")));
@@ -225,6 +227,14 @@ public class DownloadProperties implements Runnable {
 
 	public void setEmbyUrl(String embyUrl) {
 		this.embyUrl = embyUrl;
+	}
+
+	public String getEpgTimeDifference() {
+		return epgTimeDifference;
+	}
+
+	public void setEpgTimeDifference(String epgTimeDifference) {
+		this.epgTimeDifference = epgTimeDifference;
 	}
 
 	
