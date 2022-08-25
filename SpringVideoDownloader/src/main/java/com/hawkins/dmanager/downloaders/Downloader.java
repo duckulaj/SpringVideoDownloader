@@ -265,11 +265,11 @@ public abstract class Downloader implements SegmentListener {
 	}
 
 	protected String getOutputFileName(boolean updated) {
-		return listener.getOutputFile(id, updated);
+		return listener.getOutputFile(id, updated).trim();
 	}
 
 	protected String getOutputFolder() {
-		return listener.getOutputFolder(id);
+		return listener.getOutputFolder(id).trim();
 	}
 
 	@Override
