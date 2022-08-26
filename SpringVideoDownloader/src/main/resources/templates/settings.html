@@ -54,88 +54,88 @@
 	</div>
 
 
-
-	<form action="#" th:action="@{/saveSettings}" method="post">
-		<label for="channels">M3U Channel URL</label>
-		<div class="input-group col-xs-6">
-			<input type="text" class="form-control"
-				th:value="${settings.channels}" id="channels" name="channels"
-				aria-describedby="basic-addon3"> 
-				<span class="input-group-btn">
-				<button type="submit" class="btn btn-default" name="action"
-					id="btnSave" value="saveSettings">
-					<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-					Save
-				</button>
+	<div align="center">
+		<form action="#" th:action="@{/saveSettings}" method="post">
+			<label for="channels">M3U Channel URL</label>
+			<div class="input-group col-xs-6">
+				<input type="text" class="form-control"
+					th:value="${settings.channels}" id="channels" name="channels"
+					aria-describedby="basic-addon3"> <span
+					class="input-group-btn">
+					<button type="submit" class="btn btn-default" name="action"
+						id="btnSave" value="saveSettings">
+						<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+						Save
+					</button>
 				</span>
-		</div>
-		<label for="channels">M3U Download Location</label>
-		<div class="input-group col-xs-6">
-			<input type="text" class="form-control"
-				th:value="${settings.fullM3U}" id="fullM3U" name="fullM3U"
-				aria-describedby="basic-addon3"> 
-				<span class="input-group-btn">
-				<button type="submit" class="btn btn-default" name="action"
-					id="btnSave" value="saveSettings">
-					<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-					Save
-				</button>
+			</div>
+			<label for="channels">M3U Download Location</label>
+			<div class="input-group col-xs-6">
+				<input type="text" class="form-control"
+					th:value="${settings.fullM3U}" id="fullM3U" name="fullM3U"
+					aria-describedby="basic-addon3"> <span
+					class="input-group-btn">
+					<button type="submit" class="btn btn-default" name="action"
+						id="btnSave" value="saveSettings">
+						<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+						Save
+					</button>
 				</span>
-		</div>
-		<label for="channels">Download Location</label>
-		<div class="input-group col-xs-6">
-			<input type="text" class="form-control"
-				th:value="${settings.downloadPath}" id="downloadPath" name="downloadPath"
-				aria-describedby="basic-addon3"> 
-				<span class="input-group-btn">
-				<button type="submit" class="btn btn-default" name="action"
-					id="btnSave" value="saveSettings">
-					<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-					Save
-				</button>
+			</div>
+			<label for="channels">Download Location</label>
+			<div class="input-group col-xs-6">
+				<input type="text" class="form-control"
+					th:value="${settings.downloadPath}" id="downloadPath"
+					name="downloadPath" aria-describedby="basic-addon3"> <span
+					class="input-group-btn">
+					<button type="submit" class="btn btn-default" name="action"
+						id="btnSave" value="saveSettings">
+						<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+						Save
+					</button>
 				</span>
-		</div>
-		<label for="channels">tmdb URL</label>
-		<div class="input-group col-xs-6">
-			<input type="text" class="form-control"
-				th:value="${settings.movieDbURL}" id="movieDbURL" name="movieDbURL"
-				aria-describedby="basic-addon3"> 
-				<span class="input-group-btn">
-				<button type="submit" class="btn btn-default" name="action"
-					id="btnSave" value="saveSettings">
-					<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-					Save
-				</button>
+			</div>
+			<label for="channels">tmdb URL</label>
+			<div class="input-group col-xs-6">
+				<input type="text" class="form-control"
+					th:value="${settings.movieDbURL}" id="movieDbURL" name="movieDbURL"
+					aria-describedby="basic-addon3"> <span
+					class="input-group-btn">
+					<button type="submit" class="btn btn-default" name="action"
+						id="btnSave" value="saveSettings">
+						<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+						Save
+					</button>
 				</span>
-		</div>
-		<label for="channels">tmdb API</label>
-		<div class="input-group col-xs-6">
-			<input type="text" class="form-control"
-				th:value="${settings.movieDbAPI}" id="movieDbAPI" name="movieDbAPI"
-				aria-describedby="basic-addon3"> 
-				<span class="input-group-btn">
-				<button type="submit" class="btn btn-default" name="action"
-					id="btnSave" value="saveSettings">
-					<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-					Save
-				</button>
+			</div>
+			<label for="channels">tmdb API</label>
+			<div class="input-group col-xs-6">
+				<input type="text" class="form-control"
+					th:value="${settings.movieDbAPI}" id="movieDbAPI" name="movieDbAPI"
+					aria-describedby="basic-addon3"> <span
+					class="input-group-btn">
+					<button type="submit" class="btn btn-default" name="action"
+						id="btnSave" value="saveSettings">
+						<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+						Save
+					</button>
 				</span>
-		</div>
-		<label for="channels">Search for Movie URL</label>
-		<div class="input-group col-xs-6">
-			<input type="text" class="form-control"
-				th:value="${settings.searchMovieURL}" id="searchMovieURL" name="searchMovieURL"
-				aria-describedby="basic-addon3"> 
-				<span class="input-group-btn">
-				<button type="submit" class="btn btn-default" name="action"
-					id="btnSave" value="saveSettings">
-					<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-					Save
-				</button>
+			</div>
+			<label for="channels">Search for Movie URL</label>
+			<div class="input-group col-xs-6">
+				<input type="text" class="form-control"
+					th:value="${settings.searchMovieURL}" id="searchMovieURL"
+					name="searchMovieURL" aria-describedby="basic-addon3"> <span
+					class="input-group-btn">
+					<button type="submit" class="btn btn-default" name="action"
+						id="btnSave" value="saveSettings">
+						<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+						Save
+					</button>
 				</span>
-		</div>
-	</form>
-
+			</div>
+		</form>
+	</div>
 
 
 	<!-- Bootstrap core JavaScript

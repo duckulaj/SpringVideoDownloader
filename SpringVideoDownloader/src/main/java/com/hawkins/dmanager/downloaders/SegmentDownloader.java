@@ -309,7 +309,7 @@ public abstract class SegmentDownloader extends Downloader implements SegmentLis
 		totalAssembled = 0L;
 		assembling = true;
 		assembleFinished = false;
-		File outFile = new File(getOutputFolder(), getOutputFileName(true));
+		File outFile = new File(getOutputFolder().trim(), getOutputFileName(true).trim());
 		try {
 			if (stopFlag)
 				return;
