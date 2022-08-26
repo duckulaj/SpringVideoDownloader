@@ -33,3 +33,5 @@ build/
 .vscode/
 /.attach_pid365698
 /SpringVideoDownload.log
+/bin/
+/SpringVideoDownload.log.2022-08-24.0.gz
