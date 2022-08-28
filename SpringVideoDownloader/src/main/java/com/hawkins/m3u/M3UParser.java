@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.hawkins.utils.Constants;
 import com.hawkins.utils.Utils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -128,14 +129,12 @@ public class M3UParser {
 									if(!exists) {
 										if (valuesInQuotes[0].length() > 0) {
 											group.setId(valuesInQuotes[0].trim());
+											group.setType(Constants.LIVE);
 										} else {
 											group.setId("");
+											group.setType("");
 										}
 										
-										/*
-										 * if (valuesInQuotes[4].length() > 0) {
-										 * group.setType(valuesInQuotes[4].trim()); } else { group.setType(""); }
-										 */
 										m3uGroupList.add(group);
 									}
 								}

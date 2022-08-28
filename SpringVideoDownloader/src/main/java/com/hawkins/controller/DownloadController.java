@@ -164,9 +164,15 @@ public class DownloadController {
 	}
 	
 	@GetMapping(value = "/editM3U")
-	public String editM3U(Model model) {
+	public String editM3U(Model model,  @ModelAttribute(Constants.SELECTEDGROUP) M3UGroup selectedGroup) {
 		
-		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
+		if (!selectedGroup.getName().isEmpty()) {
+			List<M3UItem> sortedPlayList = playlist.filterPlayList(selectedGroup.getName());
+			model.addAttribute(Constants.FILMS, sortedPlayList);
+		} else {
+			model.addAttribute(Constants.FILMS, playlist.getPlayList());
+		}
+		// model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
 		model.addAttribute(Constants.GROUPS, M3UEdit.getLiveTVGroups());
 		return Constants.EDITM3U;
 	}
