@@ -32,6 +32,7 @@ public class Constants {
 	public static final String SEARCHFILTER = "searchFilter";
 	public static final String MOVIEDB = "movieDb";
 	public static final String FILMS = "films";
+	public static final String TV_SHOWS = "tvshows";
 	public static final String JOBLIST = "jobList";
 	public static final String SEARCHYEAR = "searchYear";
 	public static final String SETTINGS = "settings";
