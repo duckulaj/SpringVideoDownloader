@@ -28,46 +28,7 @@
         
         
 
-        function openInformationModal(row) { // begin function
-
-        	var val = row.getAttribute("value");
-        	var api = document.getElementById("moviedbapi").value;
-        	var url = document.getElementById("moviedbsearchURL").value;
-        	var movieurl = document.getElementById("moviedbsearchMovieURL").value;
-        	
-        	$.ajax({ // begin ajax
-            	url: url,
-	            data: {
-	                api_key: api,
-	                language: "en-GB",
-	                query: val
-	            },
-	            dataType : 'json',
-	            context : this,
-                success: function(data) {
-                	$.ajax({
-                    	url: movieurl + "/" + data.results[0].id,
-        	            data: {
-        	                api_key: api,
-        	                language: "en-GB"
-        	            },
-        	            dataType : 'json',
-        	            context : this,
-        	            error: function() {
-        	            	alert("No information available");
-        	            },
-                        success: function(data) {
-                        	console.log(data);
-                            console.log(data.overview);
-                            $("#modalTitleH4").html(data.title);
-                            $("#modalBodyDiv").html(data.overview);
-                            $("#myModal").modal("show");
-                        }
-                	})
-                }
-            }) //end ajax
-        } // end function
-        
+            
         function uuidv4() {
         	  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
         	    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -123,46 +84,6 @@
 							value="Search">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							Search
-						</button>
-					</div>
-				</form>
-				<form class="navbar-form navbar-left" action="#"
-					th:action="@{/viewLog}" method="get">
-					<div class="form-group">
-						<button id="btnResumeJobs" type="submit"
-							class="btn btn-outline-success">
-							<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-							View Log
-						</button>
-					</div>
-				</form>
-				<form class="navbar-form navbar-left" action="#"
-					th:action="@{/convertToStream}" method="get">
-					<div class="form-group">
-						<button id="btnConvert" type="submit"
-							class="btn btn-outline-success">
-							<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-							Convert M3U
-						</button>
-					</div>
-				</form>
-				<form class="navbar-form navbar-left" action="#"
-					th:action="@{/editM3U}" method="get">
-					<div class="form-group">
-						<button id="btnConvert" type="submit"
-							class="btn btn-outline-success">
-							<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-							Edit M3U
-						</button>
-					</div>
-				</form>
-				<form class="navbar-form navbar-left" action="#"
-					th:action="@{/mediaPlayer}" method="get">
-					<div class="form-group">
-						<button id="btnMediaPlayer" type="submit"
-							class="btn btn-outline-success">
-							<span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-							Media Player
 						</button>
 					</div>
 				</form>
@@ -249,32 +170,8 @@
 
 	</div>
 
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="modalTitleH4"></h4>
-				</div>
-				<div class="modal-body" id="modalBodyDiv"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div>
-		<input type="hidden" name="moviedbapi" id="moviedbapi"
-			th:value="${movieDb.api}" /> <input type="hidden" name="moviedburl"
-			id="moviedbsearchURL" th:value="${movieDb.url}" /> <input
-			type="hidden" name="moviedbmovieURL" id="moviedbsearchMovieURL"
-			th:value="${movieDb.movieURL}" />
-	</div>
-
-	<!-- Bootstrap core JavaScript
+	
+		<!-- Bootstrap core JavaScript
 ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hawkins.dmanager.DManagerApp;
 import com.hawkins.jobs.DownloadJob;
 import com.hawkins.m3u.M3UDownloadItem;
+import com.hawkins.m3u.M3UEdit;
 import com.hawkins.m3u.M3UGroup;
 import com.hawkins.m3u.M3UGroupList;
 import com.hawkins.m3u.M3UItem;
@@ -160,6 +161,14 @@ public class DownloadController {
 		model.addAttribute(Constants.GROUPS, grouplist.getGroupList());
 		return Constants.DOWNLOAD;
 
+	}
+	
+	@GetMapping(value = "/editM3U")
+	public String editM3U(Model model) {
+		
+		model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
+		model.addAttribute(Constants.GROUPS, M3UEdit.getLiveTVGroups());
+		return Constants.EDITM3U;
 	}
 	
 	@GetMapping(value = "/searchPerson")

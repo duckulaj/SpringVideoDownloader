@@ -89,7 +89,12 @@ public class M3UParser {
 				if (valuesInQuotes != null && valuesInQuotes.length == 4) {
 
 					M3UGroup group = new M3UGroup();
-					group.setId(null);
+
+					if (valuesInQuotes[0].length() > 0) {
+						group.setId(valuesInQuotes[0].trim());
+					} else {
+						group.setId("");
+					}
 
 					try {
 
@@ -121,7 +126,16 @@ public class M3UParser {
 									}
 
 									if(!exists) {
-
+										if (valuesInQuotes[0].length() > 0) {
+											group.setId(valuesInQuotes[0].trim());
+										} else {
+											group.setId("");
+										}
+										
+										/*
+										 * if (valuesInQuotes[4].length() > 0) {
+										 * group.setType(valuesInQuotes[4].trim()); } else { group.setType(""); }
+										 */
 										m3uGroupList.add(group);
 									}
 								}
