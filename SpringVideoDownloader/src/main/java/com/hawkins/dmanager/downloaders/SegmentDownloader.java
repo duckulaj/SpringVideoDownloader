@@ -314,7 +314,7 @@ public abstract class SegmentDownloader extends Downloader implements SegmentLis
 			if (stopFlag)
 				return;
 			byte[] buf = new byte[8192 * 8];
-			log.info("assembling... ");
+			log.info("assembling {}", outFile.getAbsolutePath());
 			Collections.sort(chunks, new SegmentComparator());
 
 			out = new FileOutputStream(outFile);
