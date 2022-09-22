@@ -2,10 +2,15 @@ package com.hawkins.utils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
@@ -60,6 +65,8 @@ public class Emby {
 		        String result = restTemplate.postForObject(uri, request, String.class);
 		        
 		        log.info(result);
+		        
+		        		        
 			} catch (URISyntaxException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

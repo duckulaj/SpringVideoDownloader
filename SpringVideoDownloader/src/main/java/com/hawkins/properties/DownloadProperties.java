@@ -39,7 +39,10 @@ public class DownloadProperties implements Runnable {
 	private boolean embyInstalled = false;
 	private String embyApi = null;
 	private String embyUrl = null;
-
+	private boolean xteveInstalled = false;
+	private String xteveUser = null;
+	private String xteveUrl = null;
+	
 	public DownloadProperties() {
 
 		Properties props = Utils.readProperties(Constants.CONFIGPROPERTIES);
@@ -66,6 +69,9 @@ public class DownloadProperties implements Runnable {
 		this.setEmbyInstalled(Boolean.parseBoolean(props.getProperty("emby.installed")));
 		this.setEmbyApi(props.getProperty("emby.api"));
 		this.setEmbyUrl(props.getProperty("emby.url"));
+		this.setXteveInstalled(Boolean.parseBoolean(props.getProperty("xteve.installed")));
+		this.setXteveUser(props.getProperty("xteve.user"));
+		this.setXteveUrl(props.getProperty("xteve.url"));
 		
 	}
 
@@ -236,6 +242,32 @@ public class DownloadProperties implements Runnable {
 	public void setEpgTimeDifference(String epgTimeDifference) {
 		this.epgTimeDifference = epgTimeDifference;
 	}
+
+	public boolean isXteveInstalled() {
+		return xteveInstalled;
+	}
+
+	public void setXteveInstalled(boolean xteveInstalled) {
+		this.xteveInstalled = xteveInstalled;
+	}
+
+	public String getXteveUser() {
+		return xteveUser;
+	}
+
+	public void setXteveUser(String xteveUser) {
+		this.xteveUser = xteveUser;
+	}
+
+	public String getXteveUrl() {
+		return xteveUrl;
+	}
+
+	public void setXteveUrl(String xteveUrl) {
+		this.xteveUrl = xteveUrl;
+	}
+	
+	
 
 	
 }
