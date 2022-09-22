@@ -36,6 +36,7 @@ import com.hawkins.m3u.M3UGroupList;
 import com.hawkins.m3u.M3UItem;
 import com.hawkins.m3u.M3UParser;
 import com.hawkins.m3u.M3UPlayList;
+import com.hawkins.m3u.M3UTvShowList;
 import com.hawkins.properties.DmProperties;
 import com.hawkins.properties.DownloadProperties;
 import com.hawkins.service.DownloadService;
@@ -70,8 +71,8 @@ public class DownloadController {
 	}
 
 	
-	M3UPlayList playlist = new M3UPlayList().getInstance();
-	M3UGroupList grouplist = new M3UGroupList().getInstance();
+	M3UPlayList playlist = M3UPlayList.getInstance();
+	M3UGroupList grouplist = M3UGroupList.getInstance();
 	DownloadProperties downloadProperties = DownloadProperties.getInstance();
 	DmProperties dmProperties = DmProperties.getInstance();
 	
@@ -168,12 +169,10 @@ public class DownloadController {
 		
 		if (!selectedGroup.getName().isEmpty()) {
 			List<M3UItem> sortedPlayList = playlist.filterPlayList(selectedGroup.getName());
-			model.addAttribute(Constants.FILMS, sortedPlayList);
-		} else {
-			model.addAttribute(Constants.FILMS, playlist.getPlayList());
+			model.addAttribute(Constants.TV_SHOWS, sortedPlayList);
 		}
 		// model.addAttribute(Constants.SELECTEDGROUP, new M3UGroup());
-		model.addAttribute(Constants.GROUPS, M3UEdit.getLiveTVGroups());
+		model.addAttribute(Constants.GROUPS, M3UTvShowList.getInstance().getGroupList());
 		return Constants.EDITM3U;
 	}
 	

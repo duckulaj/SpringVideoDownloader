@@ -16,7 +16,7 @@ import com.hawkins.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class M3UPlayList implements Runnable {
+public class M3UPlayList {
 
 	private LinkedList<M3UItem> items = new LinkedList<M3UItem>();
 	private static M3UPlayList thisInstance = null;
@@ -177,10 +177,5 @@ public class M3UPlayList implements Runnable {
 		return this.items;
 	}
 
-	@Override
-	public void run() {
-		throw new UnsupportedOperationException();
-	}
-	
 	
 }

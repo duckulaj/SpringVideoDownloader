@@ -130,12 +130,10 @@ public class M3UParser {
 										if (valuesInQuotes[0].length() > 0) {
 											group.setId(valuesInQuotes[0].trim());
 											group.setType(Constants.LIVE);
-										} else {
-											group.setId("");
-											group.setType("");
+										} 
+										if (group.getId().length() > 0) {
+											m3uGroupList.add(group);
 										}
-										
-										m3uGroupList.add(group);
 									}
 								}
 							}
@@ -163,11 +161,11 @@ public class M3UParser {
 		LinkedList<M3UGroup> sortedGroups = sortGrouplist(m3uGroupList);
 
 		if (log.isDebugEnabled()) {
-			log.debug("Found {} groups", m3uGroupList.size());
+			log.debug("Found {} groups", sortedGroups.size());
 			log.debug("getM3uGroupsFromFile executed in {} ms", (System.currentTimeMillis() - start));
 		}
 
-		return sortGrouplist(sortedGroups);
+		return sortedGroups;
 	}
 
 	public static LinkedList<M3UItem> sortPlaylist(LinkedList<M3UItem> playlist) {

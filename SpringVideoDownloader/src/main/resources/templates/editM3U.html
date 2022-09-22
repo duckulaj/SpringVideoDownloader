@@ -132,39 +132,18 @@
 
 	<br>
 	<div class="searchFilter" align="center"></div>
-	<div class="playlist" th:unless="${#lists.isEmpty(films)}">
+	<div class="playlist" th:unless="${#lists.isEmpty(tvshows)}">
 
 
 		<table class="table table-hover">
 			<tr>
 			</tr>
 			<thead>
-				<th></th>
-				<th>Name</th>
-				<th>Download</th>
-				<th>Info</th>
+				<th>Channel</th>
 			</thead>
 			<tr></tr>
-			<tr th:each="film : ${films}">
-				<td><img alt="" th:src="${film.logo}" width="70" height="115" th:onclick="openInformationModal(this);" th:value="${film.search}"/></td>
-				<td th:text="${film.name}">N/A</td>
-				<form action="#" th:action="@{/download}" method="post">
-					<td><input type="hidden" th:value="${film.name}" name="name"
-						id="name" />
-						<button type="submit" class="btn btn-default btn-sm" name="action"
-							id="btndownload" value="download">
-							<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-							Download
-						</button></td>
-				</form>
-				<td><input type="hidden" th:value="${film.search}"
-					name="searchInfo" id="searchInfo" />
-					<button type="submit" class="btn btn-default btn-sm"
-						name="btninformation" id="btninformation"
-						th:onclick="openInformationModal(this);" th:value="${film.search}">
-						<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-					</button></td>
-
+			<tr th:each="tvshow : ${tvshows}">
+				<td th:text="${tvshow.name}">N/A</td>
 			</tr>
 		</table>
 
