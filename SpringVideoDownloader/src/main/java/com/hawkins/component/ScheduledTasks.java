@@ -10,6 +10,7 @@ import com.hawkins.epg.EpgReader;
 import com.hawkins.m3u.M3UtoStrm;
 import com.hawkins.properties.DownloadProperties;
 import com.hawkins.utils.Utils;
+import com.hawkins.utils.Xteve;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,6 +56,13 @@ public class ScheduledTasks {
 
 		EpgReader.changeLocalTime(epgFile);
 		log.info("Scheduled Task reloadEPG() completed");
+	}
+	
+	@Scheduled(cron = "0 */6 * * *") // Every 6 hours
+	public void updateXteve() {
+		
+		Xteve.updateXteve();
+		
 	}
 
 }
