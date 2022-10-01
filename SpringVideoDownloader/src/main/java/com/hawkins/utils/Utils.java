@@ -15,7 +15,9 @@ import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -372,6 +374,13 @@ public class Utils {
 		return StringUtils.replaceEach(thisString, wordsToStrip, new String[] {"",""});
 		    
 
+	}
+	
+	public static String printNow() {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	    Date date = new Date();  
+	    return formatter.format(date);  
 	}
 }
 
