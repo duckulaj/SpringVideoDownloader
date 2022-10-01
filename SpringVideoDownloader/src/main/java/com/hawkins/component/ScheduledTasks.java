@@ -18,50 +18,44 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ScheduledTasks {
 
-
-
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
 	@Scheduled(cron = "0 1 1 * * ?") // 1.01am
 	public void resetM3UFile() {
 
-		String dateString = dateFormat.format(new Date());
 		if (log.isDebugEnabled()) {
-			log.debug("The time is now {}", dateString);
+			log.debug("The time is now {}", Utils.printNow());
 		}
 
 		DownloadProperties downloadProperties = DownloadProperties.getInstance();
 
 		Utils.copyUrlToFile(downloadProperties.getChannels(), downloadProperties.getFullM3U());
 		if (log.isDebugEnabled()) {
-			log.debug("Reloaded m3u file at {}", dateString);
+			log.debug("Reloaded m3u file at {}", Utils.printNow());
 		}
 	}
 
 
-	@Scheduled(cron = "0 1 5 * * ?") // 5.05am
-	// @Scheduled(fixedRateString = "${createStreams.fixedRate.in.milliseconds}")
+	@Scheduled(cron = "0 1 5 * * ?") // 5.01am
 	public void createStreams() {
 
 		M3UtoStrm.convertM3UtoStream();
-		log.info("Scheduled Task createStreams() completed");
+		log.info("Scheduled Task createStreams) completed at {}", Utils.printNow());
 	}
 
-	@Scheduled(cron = "0 1 10 * * ?") // 1.10am
-	// @Scheduled(fixedRateString = "${createStreams.fixedRate.in.milliseconds}")
+	@Scheduled(cron = "0 10 1 * * ?") // 1.10am
 	public void reloadEPG() {
 
 		DownloadProperties dp = DownloadProperties.getInstance();
 		String epgFile = dp.getEpgFileName();
 
 		EpgReader.changeLocalTime(epgFile);
-		log.info("Scheduled Task reloadEPG() completed");
+		log.info("Scheduled Task reloadEPG completed at {}", Utils.printNow());
 	}
 	
-	@Scheduled(cron = "0 */4 * * * ?") // Every 4 hours
+	@Scheduled(cron = "0 * */4 * * ?") // Every 4 hours
 	public void updateXteve() {
 		
 		Xteve.updateXteve();
+		log.info("Scheduled Task updateXteve completed at {}", Utils.printNow());
 		
 	}
 
