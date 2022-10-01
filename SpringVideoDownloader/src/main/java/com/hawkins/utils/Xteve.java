@@ -22,17 +22,13 @@ public class Xteve {
 		
 		DownloadProperties downloadProperties = DownloadProperties.getInstance();
 		
-		// downloadProperties.setXteveInstalled(true);
-		
 		if (downloadProperties.isXteveInstalled()) {
 			
 			String username = downloadProperties.getXteveUser();
 			String xteveUrl = downloadProperties.getXteveUrl();
-			
-			// String username = "duckulaj";
+				
 			String password = "ja9juja9ju";
-			// String xteveUrl = "http://localhost:34400/api/";
-			
+					
 			RestTemplate template = new RestTemplate();
 			
 			// create headers

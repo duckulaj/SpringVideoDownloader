@@ -2,19 +2,14 @@ package com.hawkins.utils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.hawkins.properties.DownloadProperties;
 
@@ -42,7 +37,7 @@ public class Emby {
 						
 			JsonArray scheduledTasksArray = new Gson().fromJson(response, JsonArray.class);
 			
-			for (Iterator iterator = scheduledTasksArray.iterator(); iterator.hasNext();) {
+			for (Iterator<JsonElement> iterator = scheduledTasksArray.iterator(); iterator.hasNext();) {
 				JsonObject type = (JsonObject) iterator.next();
 				
 				if (type.get("Key").getAsString().equals("RefreshGuide")) {

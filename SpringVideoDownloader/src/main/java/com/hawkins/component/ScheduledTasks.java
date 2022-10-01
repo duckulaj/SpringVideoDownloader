@@ -58,7 +58,7 @@ public class ScheduledTasks {
 		log.info("Scheduled Task reloadEPG() completed");
 	}
 	
-	@Scheduled(cron = "0 */4 * * *") // Every 4 hours
+	@Scheduled(cron = "0 */4 * * * ?") // Every 4 hours
 	public void updateXteve() {
 		
 		Xteve.updateXteve();
