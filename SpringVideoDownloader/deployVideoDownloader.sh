@@ -4,6 +4,7 @@ mvn clean package
 cd target
 echo "Stopping videoDownloader"
 sudo systemctl stop videoDownloader
+rm /home/jonathan/videoDownloader/SpringVideoDownload.log.*.gz
 cp SpringVideoDownloader-0.0.1-SNAPSHOT.jar /home/jonathan/videoDownloader/SpringVideoDownloader.jar
 echo "Starting videoDownloader"
 sudo systemctl start videoDownloader
