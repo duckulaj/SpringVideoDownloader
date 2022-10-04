@@ -21,9 +21,11 @@ public class M3UPlayList {
 	private LinkedList<M3UItem> items = new LinkedList<M3UItem>();
 	private static M3UPlayList thisInstance = null;
 
+	DownloadProperties downloadproperties = DownloadProperties.getInstance();
+	
 	public M3UPlayList() {
 
-		DownloadProperties downloadproperties = DownloadProperties.getInstance();
+		
 		
 		// Utils.copyUrlToFile(downloadproperties.getChannels(), downloadproperties.getFullM3U());
 		Utils.copyUrlToFileUsingCommonsIO(downloadproperties.getChannels(), downloadproperties.getFullM3U());
@@ -31,6 +33,7 @@ public class M3UPlayList {
 		
 
 		this.items =  M3UParser.getAllM3UListFromFile(downloadproperties.getFullM3U());
+		log.info("getAllM3UListFromFile returned {} items", items.size());
 	}
 
 	public static synchronized M3UPlayList getInstance()
@@ -45,6 +48,12 @@ public class M3UPlayList {
 		}
 
 		return M3UPlayList.thisInstance;
+	}
+	
+	public LinkedList<M3UItem> resetPlayList () {
+		this.items = new LinkedList<>();
+		this.items =  M3UParser.getAllM3UListFromFile(downloadproperties.getFullM3U());
+		return this.items;
 	}
 
 	public List<M3UItem> filterPlayList(String group) {

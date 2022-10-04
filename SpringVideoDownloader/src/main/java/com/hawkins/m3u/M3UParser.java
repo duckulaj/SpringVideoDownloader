@@ -34,11 +34,18 @@ public class M3UParser {
 				try {
 					String[] valuesInQuotes = StringUtils.substringsBetween(line, "\"", "\"");
 					if (valuesInQuotes != null) {
-						M3UItem channel = new M3UItem();
-						channel.setId(valuesInQuotes[0]);
-						channel.setName(normaliseName(valuesInQuotes[1]));
-						if (Utils.containsWords(channel.getName(), countriesToInclude)) {
-								
+						// M3UItem channel = new M3UItem();
+						// channel.setId(valuesInQuotes[0]);
+						// channel.setName(normaliseName(valuesInQuotes[1]));
+						// if (Utils.containsWords(channel.getName(), countriesToInclude)) {
+						
+						String normalisedName = normaliseName(valuesInQuotes[1]);
+						if (Utils.containsWords(normalisedName, countriesToInclude)) {	
+							
+							M3UItem channel = new M3UItem();
+							channel.setId(valuesInQuotes[0]);
+							channel.setName(normalisedName);
+							
 							channel.setLogo(valuesInQuotes[2]);
 	
 							if (valuesInQuotes[3].equalsIgnoreCase("#menu-collapse")) {
@@ -46,6 +53,7 @@ public class M3UParser {
 							}
 							channel.setGroupTitle(valuesInQuotes[3]);
 							channel.setUrl(br.readLine());
+							channel.setGroupType(deriveGroupTypeByUrl(channel.getUrl()));
 							channel.setSearch(normaliseName(valuesInQuotes[1]));
 
 							channel = removeLanguageIdentifier(channel); 
@@ -69,6 +77,9 @@ public class M3UParser {
 		if (log.isDebugEnabled()) {
 			log.debug("getAllM3uListFromFile executed in {} ms", (System.currentTimeMillis() - start));
 		}
+		
+		log.info("Found {} playlist items", m3uList.size());
+		
 		return m3uList;
 	}
 
@@ -80,6 +91,9 @@ public class M3UParser {
 		try (BufferedReader br = Files.newBufferedReader(Paths.get(m3uFile))) {
 
 			String line;
+			String groupId;
+			String groupName;
+			
 			while ((line = br.readLine()) != null) {
 
 				if (log.isDebugEnabled()) {
@@ -89,12 +103,14 @@ public class M3UParser {
 				String[] valuesInQuotes = StringUtils.substringsBetween(line, "\"", "\"");
 				if (valuesInQuotes != null && valuesInQuotes.length == 4) {
 
-					M3UGroup group = new M3UGroup();
+					// M3UGroup group = new M3UGroup();
 
 					if (valuesInQuotes[0].length() > 0) {
-						group.setId(valuesInQuotes[0].trim());
+						// group.setId(valuesInQuotes[0].trim());
+						groupId = valuesInQuotes[0].trim();
 					} else {
-						group.setId("");
+						// group.setId("");
+						groupId = "";
 					}
 
 					try {
@@ -104,11 +120,17 @@ public class M3UParser {
 						if (valuesInQuotes[3].equalsIgnoreCase("modal")) {
 							log.debug("bollox");
 						} else {
-							group.setName(valuesInQuotes[3]);
+							// group.setName(valuesInQuotes[3]);
+							groupName = valuesInQuotes[3];
 
-							if (Utils.containsWords(group.getName(), countriesToInclude)) {
+							// if (Utils.containsWords(group.getName(), countriesToInclude)) {
+							if (Utils.containsWords(groupName, countriesToInclude)) {
 								// if (channel.getName().contains("[EN]")) {
-
+								
+								M3UGroup group = new M3UGroup();
+								group.setId(groupId);
+								group.setName(groupName);
+								
 								group = removeLanguageIdentifier(group); 
 								
 								if (log.isDebugEnabled()) {
@@ -130,7 +152,13 @@ public class M3UParser {
 										if (valuesInQuotes[0].length() > 0) {
 											group.setId(valuesInQuotes[0].trim());
 											group.setType(Constants.LIVE);
-										} 
+										} else {
+											group.setId(valuesInQuotes[0].trim());
+											
+											String url = br.readLine();
+											
+											group.setType(deriveGroupTypeByUrl(url));
+										}
 										if (group.getId().length() > 0) {
 											m3uGroupList.add(group);
 										}
@@ -165,6 +193,8 @@ public class M3UParser {
 			log.debug("getM3uGroupsFromFile executed in {} ms", (System.currentTimeMillis() - start));
 		}
 
+		log.info("Found {} groups", sortedGroups.size());
+		
 		return sortedGroups;
 	}
 
@@ -224,7 +254,7 @@ public class M3UParser {
 		return thisGroup; 
 	}
 
-	private static M3UItem removeLanguageIdentifier(M3UItem thisItem) {
+	public static M3UItem removeLanguageIdentifier(M3UItem thisItem) {
 
 		thisItem.setName(replaceAndStrip(thisItem.getName()));
 		thisItem.setGroupTitle(replaceAndStrip(thisItem.getGroupTitle()));
@@ -236,16 +266,31 @@ public class M3UParser {
 		return thisItem;
 	}
 
-	private static M3UGroup removeLanguageIdentifier(M3UGroup thisGroup) {
+	public static M3UGroup removeLanguageIdentifier(M3UGroup thisGroup) {
 
 		thisGroup.setName(Utils.replaceAndStrip(thisGroup.getName(),countriesToInclude));
 
 		return thisGroup;
 	}
 	
-	private static String replaceAndStrip(String thisString) {
+	public static String replaceAndStrip(String thisString) {
 		
 		return Utils.replaceAndStrip(thisString,countriesToInclude);
+	}
+	
+	public static String deriveGroupTypeByUrl(String url) {
+		
+		String groupType = "";
+		
+		if (url.contains(Constants.SERIES)) {
+			groupType = Constants.SERIES;
+		} else if (url.contains(Constants.MOVIE)) {
+			groupType = Constants.MOVIE;
+		} else if (url.length() > 0) {
+			groupType = Constants.LIVE;
+		}
+				
+		return groupType;
 	}
 
 	

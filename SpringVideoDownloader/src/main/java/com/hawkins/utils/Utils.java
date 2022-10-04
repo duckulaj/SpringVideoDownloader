@@ -54,7 +54,7 @@ public class Utils {
 		if (log.isDebugEnabled()) {
 			log.debug("Utils.readProperties :: Looking for {}videoDownloader/.dmanager/{}", userHome, propertyType);
 		}
-		
+
 		File configFile = new File(userHome, "videoDownloader/.dmanager/" + propertyType);
 
 		if (!configFile.exists() && log.isDebugEnabled()) {
@@ -74,7 +74,7 @@ public class Utils {
 		}
 
 		long end = System.currentTimeMillis();
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("readProperties executed in {} ms", (end - start));
 		}
@@ -117,10 +117,10 @@ public class Utils {
 		try (
 				FileOutputStream fileOS = new FileOutputStream(fileName);
 				ReadableByteChannel readChannel = Channels.newChannel((new URL(url)).openStream());	
-			){
-			
+				){
+
 			fileOS.getChannel().transferFrom(readChannel, 0L, Long.MAX_VALUE);
-			
+
 		} catch (IOException ioe) {
 			if (log.isDebugEnabled()) {
 				log.debug(ioe.getMessage());
@@ -132,9 +132,9 @@ public class Utils {
 			log.debug("copyUrlToFile executed in {} ms", (end - start));
 		}
 	}
-	
+
 	public static void copyUrlToFileUsingCommonsIO(String url, String fileName) {
-		
+
 		try {
 			FileUtils.copyURLToFile(new URL(url), new File(fileName), 40000, 30000);
 		} catch (MalformedURLException e) {
@@ -241,7 +241,7 @@ public class Utils {
 					FileUtils.forceDelete(new File(j.getDestination()));
 				} catch (IOException e) {
 					if (log.isDebugEnabled()) {
-					log.debug(e.getMessage());
+						log.debug(e.getMessage());
 					}
 				}
 			}
@@ -267,7 +267,7 @@ public class Utils {
 		long rightLimit = 10L;
 
 		return leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
-	
+
 	}
 
 	public static JsonObject searchplayListByActor(String filter) {
@@ -287,10 +287,10 @@ public class Utils {
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Content-Type", "application/json");
-			
+
 			JsonObject jsonObject = (JsonObject)JsonParser.parseReader(
-				      new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
-			
+					new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
+
 			obj = jsonObject;
 
 		} catch (Exception e) {
@@ -315,15 +315,15 @@ public class Utils {
 			parameters.put("region", "GB");
 			parameters.put("release_date.gte", filter + "-01-01");
 			parameters.put("release_date.lte", filter + "-12-31");
-			
+
 			URL url = new URL(discoverURL + "?" + getParamsString(parameters));
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Content-Type", "application/json");
-			
+
 			JsonObject jsonObject = (JsonObject)JsonParser.parseReader(
-				      new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
-			
+					new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
+
 			obj = jsonObject;
 
 		} catch (Exception e) {
@@ -349,38 +349,45 @@ public class Utils {
 				? resultString.substring(0, resultString.length() - 1)
 						: resultString;
 	}
-	
+
 	public static String replaceCharacterWithSpace (String stringToReplace) {
-		
-		
+
+
 		if (stringToReplace != null) {
 			if (stringToReplace.contains("/")) {
 				stringToReplace = stringToReplace.replace("/", " ");
 			}
 		}
-		
+
 		return stringToReplace;
 	}
 
 	public static boolean containsWords(String inputString, String[] words) {
-	    List<String> inputStringList = Arrays.asList(inputString.split(" "));
-	    List<String> wordsList = Arrays.asList(words);
+		List<String> inputStringList = Arrays.asList(inputString.split(" "));
+		List<String> wordsList = Arrays.asList(words);
 
-	    return wordsList.stream().anyMatch(inputStringList::contains);
+		return wordsList.stream().anyMatch(inputStringList::contains);
 	}
-	
+
 	public static String replaceAndStrip(String thisString, String[] wordsToStrip) {
-		
-		return StringUtils.replaceEach(thisString, wordsToStrip, new String[] {"",""});
-		    
+
+		int wordsToStripCount = wordsToStrip.length;
+
+		String[] spaces = new String[wordsToStripCount];
+
+		for (int i = 0; i < spaces.length; i++) {
+			spaces[i] = "";
+		}
+		return StringUtils.replaceEach(thisString, wordsToStrip, spaces);
+
 
 	}
-	
+
 	public static String printNow() {
-		
+
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-	    Date date = new Date();  
-	    return formatter.format(date);  
+		Date date = new Date();  
+		return formatter.format(date);  
 	}
 }
 

@@ -13,7 +13,7 @@ public class M3UItem {
 	private String movieDbId = "";
 	private boolean downloaded = false;
 	
-	String[] wordsToExclude= {"[4K]","[HD]"};
+	String[] wordsToExclude= {"[4K]","[HD]","[8K]"};
 
 	public String getId() {
 		return this.id;

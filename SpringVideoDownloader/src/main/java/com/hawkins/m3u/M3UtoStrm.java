@@ -24,9 +24,10 @@ public class M3UtoStrm {
 
 
 	private static String[] videoTypes = {Constants.AVI, Constants.MKV, Constants.MP4};
+	private static String[] viewingDefinitions = {"SD", "FHD", "UHD", "HD", "4K", "8K"};
 	private static String tvShowRegex = "[S]{1}[0-9]{2} [E]{1}[0-9]{2}";
 	private static String seasonRegex = "[S]{1}[0-9]{2}";
-	
+
 	public static void convertM3UtoStream() {
 
 		/*
@@ -38,11 +39,12 @@ public class M3UtoStrm {
 		 * 6. Create a subfolder for each Season
 		 * 7. Create a an strm file for each episode within a season
 		 */
-		
+
 		M3UGroupList groups = M3UGroupList.getInstance();
 		groups.resetGroupList();
-		
+
 		M3UPlayList playlist = M3UPlayList.getInstance();
+		playlist.resetPlayList();
 
 		log.info("{} items in playlist", playlist.getPlayList().size());
 		playlist.getPlayList().forEach(item -> {
@@ -51,48 +53,54 @@ public class M3UtoStrm {
 
 			if (thisGroup!= null) {
 
-				String streamType = deriveStreamType(item);
+				// String streamType = deriveStreamType(item);
 
-				thisGroup.setType(streamType);
-				item.setGroupType(streamType);
+				// thisGroup.setType(streamType);
+				// item.setGroupType(streamType);
+				item.setGroupType(thisGroup.getType());
+				item = M3UParser.removeLanguageIdentifier(item);
+				item.setTitle(Utils.replaceAndStrip(item.getTitle(), viewingDefinitions));
+				item.setName(Utils.replaceAndStrip(item.getName(), viewingDefinitions));
+				item.setSearch(Utils.replaceAndStrip(item.getSearch(), viewingDefinitions).trim());
+				
 			}
 		});
-		
+
 		List<M3UItem> playlistItems = playlist.getPlayList();
 
 		List<M3UItem> movies = filterItems(playlistItems, ofType(Constants.MOVIE));
 		log.info("{} Movies", movies.size());
-		
-		List<M3UItem> tvshows = filterItems(playlistItems, ofType(Constants.TVSHOW));
+
+		List<M3UItem> tvshows = filterItems(playlistItems, ofType(Constants.SERIES));
 		log.info("{} TV Shows", tvshows.size());
-		
+
 		List<M3UItem> HDMovies = filterItems(movies, ofTypeDefinition(Constants.HD));
 		log.info("{} HD Movies", HDMovies.size());
-		
+
 		List<M3UItem> FHDMovies = filterItems(movies, ofTypeDefinition(Constants.FHD));
 		log.info("{} FHD Movies", FHDMovies.size());
-		
+
 		List<M3UItem> UHDMovies = filterItems(movies, ofTypeDefinition(Constants.UHD));
 		log.info("{} UHD Movies", UHDMovies.size());
-		
+
 		movies.removeAll(FHDMovies);
 		movies.removeAll(UHDMovies);
-		
+
 		String movieFolder = createFolder(Constants.FOLDER_MOVIES) + File.separator;
 		log.info("Created {}", movieFolder);
-		
+
 		createMovieFolders(movies, Constants.HD);
 		log.info("Created HD Movies folders");
-		
+
 		createMovieFolders(movies, Constants.SD);
 		log.info("Created SD Movies folders");
-		
+
 		createMovieFolders(FHDMovies, Constants.FHD);
 		log.info("Created FHD Movies folders");
-		
+
 		createMovieFolders(UHDMovies, Constants.UHD);
 		log.info("Created UHD Movies folders");
-		
+
 		createTVshowFolders(tvshows);
 		log.info("Created TV Shows folders");
 	}
@@ -102,31 +110,44 @@ public class M3UtoStrm {
 
 		String streamType = null;
 		String videoExtension = null;
-		String stream= item.getUrl();
+		String stream = item.getUrl();
 		String name = item.getName();
 
-		// Get the last three characters from the stream
+		
+		if (item.getGroupType().equalsIgnoreCase(Constants.LIVE) || item.getGroupType().equals("") ) {
 
-		if (stream.length() > 3) videoExtension = stream.substring(stream.length() - 3);
-
-		if (Arrays.asList(videoTypes).contains(videoExtension)) {
-
-			// Check to see if we have Season and Episode information in the form of S01 E01
-
-			Pattern pattern = Pattern.compile(tvShowRegex, Pattern.CASE_INSENSITIVE);
-			Matcher matcher = pattern.matcher(name);
-			boolean matchFound = matcher.find();
-
-			if (matchFound) {
-				streamType = Constants.TVSHOW;
-			} else {
-				streamType = Constants.MOVIE;
-			}
+			streamType = Constants.LIVE;
 
 		} else {
-			streamType = Constants.LIVE;
-		}
+			// Get the last three characters from the stream
 
+			if (stream.length() > 3) videoExtension = stream.substring(stream.length() - 3);
+
+			if (Arrays.asList(videoTypes).contains(videoExtension)) {
+
+				// Check to see if we have Season and Episode information in the form of S01 E01
+
+
+				Pattern pattern = Pattern.compile(tvShowRegex, Pattern.CASE_INSENSITIVE);
+				Matcher matcher = pattern.matcher(name);
+				boolean matchFound = matcher.find();
+
+				if (matchFound) {
+					streamType = Constants.TVSHOW;
+				} else {
+					streamType = Constants.MOVIE;
+				}
+
+			} else {
+				streamType = Constants.LIVE;
+			}
+
+			if (stream.contains(Constants.SERIES)) {
+				streamType = Constants.TVSHOW;
+			} else if (stream.contains(Constants.MOVIE)) {
+				streamType = Constants.MOVIE;
+			}
+		}
 		return streamType;
 	}
 
@@ -134,7 +155,7 @@ public class M3UtoStrm {
 	public static Predicate<M3UItem> ofType(String type) {
 		return p -> p.getGroupType().equals(type);
 	}
-	
+
 	public static Predicate<M3UItem> ofTypeDefinition(String definition) {
 		return p -> p.getName().indexOf(definition) != -1 && p.getGroupType().equalsIgnoreCase(Constants.MOVIE);
 	}
@@ -149,16 +170,16 @@ public class M3UtoStrm {
 		if (log.isDebugEnabled()) {
 			log.debug("Starting createMovieFolders");
 		}
-		
+
 		// deleteFolder(Constants.FOLDER_MOVIES);
-				
+
 		if (log.isDebugEnabled()) {
 			log.debug("Processing {} movies", movies.size());
 		}
-		
+
 		log.info("Processing {} movies of type {}", movies.size(),type);
 		makeMovieFolders(movies, type);
-				
+
 	}
 
 	public static void createTVshowFolders (List<M3UItem> tvshows) {
@@ -166,16 +187,16 @@ public class M3UtoStrm {
 		if (log.isDebugEnabled()) {
 			log.debug("Starting createMovieFolders");
 		}
-		
+
 		deleteFolder(Constants.FOLDER_TVSHOWS);
 		String tvShowFolder = createFolder(Constants.FOLDER_TVSHOWS) + File.separator;
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("Processing {} TV Shows", tvshows.size());
 		}
-		
+
 		log.info("Processing {} TV Shows", tvshows.size());
-		
+
 		tvshows.forEach(tvShow -> {
 			String tvShowName = tvShow.getName();
 			tvShowName = Utils.replaceCharacterWithSpace(tvShowName);
@@ -197,7 +218,7 @@ public class M3UtoStrm {
 				 */
 				File seasonFolder = new File(tvShowSeasonFolder.getAbsolutePath() + File.separator + season);
 				if (!seasonFolder.exists()) seasonFolder.mkdir();
-				
+
 				File thisFile = new File(seasonFolder.getAbsolutePath() + File.separator + tvShowName + ".strm"); 
 				try {
 					writeToFile(thisFile, tvShow.getUrl());
@@ -205,7 +226,7 @@ public class M3UtoStrm {
 					e.printStackTrace();
 				}
 			}
-			
+
 		});
 	}
 
@@ -220,7 +241,7 @@ public class M3UtoStrm {
 				.map(Path::toFile)
 				.forEach(File::delete);
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -230,21 +251,21 @@ public class M3UtoStrm {
 	public static String createFolder (String folder) {
 
 		String baseDirectory = DownloadProperties.getInstance().getDownloadPath() + File.separator;
-		
+
 		File newDirectory = new File(baseDirectory + folder);
 
 		if (newDirectory.exists()) {
 			deleteFolder(newDirectory.getAbsolutePath());
 		}
-		
+
 		newDirectory.mkdir();
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("Created folder {}", newDirectory.getAbsolutePath());
 		}
 
 		return newDirectory.getAbsolutePath();
-		
+
 	}
 
 	public static void writeToFile(File thisFile, String content) throws IOException{
@@ -252,7 +273,7 @@ public class M3UtoStrm {
 		if (log.isDebugEnabled()) {
 			log.debug("Writing file {}", thisFile.getAbsolutePath());
 		}
-		
+
 		FileWriter writer = new FileWriter(thisFile);
 		writer.write(content);
 
@@ -260,15 +281,15 @@ public class M3UtoStrm {
 	}
 
 	public static void makeMovieFolders(List<M3UItem> movies, String type) {
-				
+
 		movies.forEach(movie -> {
-			
+
 			String groupTitle = movie.getGroupTitle();
 			String folder = movie.getName().trim();
 			folder = folder.replace("/", " ").trim();
-			
+
 			String url = movie.getUrl();
-			
+
 			if (type.equals(Constants.FHD)) {
 				folder = folder.replace(Constants.FHD, "").trim();
 			} else if (type.equals(Constants.UHD)) {
@@ -276,17 +297,17 @@ public class M3UtoStrm {
 			}
 			try {
 				if (!groupTitle.contains(Constants.ADULT)) { // Exclude Adult
-				
+
 					String newFolder = M3UParser.normaliseName(folder);
 					String newFolderPath = createFolder(Constants.FOLDER_MOVIES + File.separator + newFolder);
 					File thisFile = new File(newFolderPath + File.separator + folder + ".strm"); 
 					writeToFile(thisFile, url);
-				
+
 				}
 			} catch (IOException ioe) {
 				ioe.getMessage();
 			}
-		
+
 		});
 	}
 }

@@ -25,6 +25,7 @@ public class Constants {
 	public static final String LIVE = "live";
 	public static final String TVSHOW = "tvshow";
 	public static final String MOVIE = "movie";
+	public static final String SERIES = "series";
 	
 	public static final String DOWNLOAD = "download";
 	public static final String GROUPS = "groups";
