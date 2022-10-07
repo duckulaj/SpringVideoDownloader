@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hawkins.dmanager.DManagerApp;
 import com.hawkins.jobs.DownloadJob;
 import com.hawkins.m3u.M3UDownloadItem;
-import com.hawkins.m3u.M3UEdit;
 import com.hawkins.m3u.M3UGroup;
 import com.hawkins.m3u.M3UGroupList;
 import com.hawkins.m3u.M3UItem;

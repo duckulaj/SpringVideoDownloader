@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hawkins.utils.Constants;
+import com.hawkins.utils.Utils;
 import com.hawkins.utils.Xteve;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class ExternalAppsController {
 	public String updateXteve (Model model) {
 		
 		Xteve.updateXteve();
+		log.info("updateXteve completed at {}", Utils.printNow());
 		
 		return Constants.DOWNLOAD; 
 	}
