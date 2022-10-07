@@ -48,6 +48,9 @@ public class Constants {
 	public static final String FHD = "FHD";
 	public static final String SD = "SD";
 	public static final String HD = "HD";
+	public static final String DEFINITION_4K = "[4K]";
+	public static final String DEFINITION_8K = "[8K]";
+	
 	public static final String ADULT = "For Adults";
 	
 	public static final String[] allowedExtensions = {"mp4","ts"};

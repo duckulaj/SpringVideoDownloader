@@ -24,7 +24,7 @@ public class M3UtoStrm {
 
 
 	private static String[] videoTypes = {Constants.AVI, Constants.MKV, Constants.MP4};
-	private static String[] viewingDefinitions = {"SD", "FHD", "UHD", "HD", "4K", "8K"};
+	private static String[] viewingDefinitions = {"[SD]", "[FHD]", "[UHD]", "[HD]", "[4K]", "[8K]"};
 	private static String tvShowRegex = "[S]{1}[0-9]{2} [E]{1}[0-9]{2}";
 	private static String seasonRegex = "[S]{1}[0-9]{2}";
 
@@ -53,10 +53,6 @@ public class M3UtoStrm {
 
 			if (thisGroup!= null) {
 
-				// String streamType = deriveStreamType(item);
-
-				// thisGroup.setType(streamType);
-				// item.setGroupType(streamType);
 				item.setGroupType(thisGroup.getType());
 				item = M3UParser.removeLanguageIdentifier(item);
 				item.setTitle(Utils.replaceAndStrip(item.getTitle(), viewingDefinitions));
@@ -199,7 +195,7 @@ public class M3UtoStrm {
 
 		tvshows.forEach(tvShow -> {
 			String tvShowName = tvShow.getName();
-			tvShowName = Utils.replaceCharacterWithSpace(tvShowName);
+			tvShowName = Utils.replaceForwardSlashWithSpace(tvShowName);
 			Pattern seasonPattern = Pattern.compile(seasonRegex, Pattern.CASE_INSENSITIVE);
 			Matcher seasonMatcher = seasonPattern.matcher(tvShowName);
 			boolean seasonMatchFound = seasonMatcher.find();

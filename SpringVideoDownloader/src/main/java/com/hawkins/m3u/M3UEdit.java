@@ -24,7 +24,7 @@ public class M3UEdit {
 		return p -> p.getType().equals(type);
 	}
 	
-	public static LinkedList getLiveTVGroups() {
+	public static LinkedList<M3UGroup> getLiveTVGroups() {
 				
 		LinkedList<M3UGroup> groups = filterGroups(M3UGroupList.getInstance().getGroupList(), ofType(Constants.LIVE));
 		

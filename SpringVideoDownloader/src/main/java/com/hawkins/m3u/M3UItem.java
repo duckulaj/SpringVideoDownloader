@@ -29,7 +29,7 @@ public class M3UItem {
 
 	public void setName(String name) {
 		
-		Utils.replaceCharacterWithSpace(name);
+		Utils.replaceForwardSlashWithSpace(name);
 		
 		this.name = Utils.replaceAndStrip(name, wordsToExclude);
 	}
@@ -48,7 +48,7 @@ public class M3UItem {
 
 	public void setGroupTitle(String groupTitle) {
 		
-		Utils.replaceCharacterWithSpace(groupTitle);
+		Utils.replaceForwardSlashWithSpace(groupTitle);
 		this.title = groupTitle;
 	}
 
@@ -74,7 +74,7 @@ public class M3UItem {
 
 	public void setTitle(String title) {
 		
-		Utils.replaceCharacterWithSpace(title);
+		Utils.replaceForwardSlashWithSpace(title);
 		this.title = title;
 	}
 

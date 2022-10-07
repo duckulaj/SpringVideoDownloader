@@ -1,8 +1,5 @@
 package com.hawkins.component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +7,6 @@ import com.hawkins.epg.EpgReader;
 import com.hawkins.m3u.M3UtoStrm;
 import com.hawkins.properties.DownloadProperties;
 import com.hawkins.utils.Utils;
-import com.hawkins.utils.Xteve;
 
 import lombok.extern.slf4j.Slf4j;
 

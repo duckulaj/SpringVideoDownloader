@@ -25,12 +25,10 @@ public class EpgReader {
 	private static Document document;
 	private static String szEnd = "";
 	private static String szStart = "";
-	private static String szDisplayName = "";
-	
+		
 	private static final String START = "start";
 	private static final String STOP = "stop";
-	private static final String DISPLAY_NAME = "display-name"; 
-	
+		
 	public EpgReader() {
 		super();
 	}

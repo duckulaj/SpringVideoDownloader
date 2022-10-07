@@ -350,7 +350,7 @@ public class Utils {
 						: resultString;
 	}
 
-	public static String replaceCharacterWithSpace (String stringToReplace) {
+	public static String replaceForwardSlashWithSpace (String stringToReplace) {
 
 
 		if (stringToReplace != null) {
